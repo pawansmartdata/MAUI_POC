@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace MAUIAssessmentFrontend.Models
 {
-    internal class AuthResponseDto
+    public class AuthResponseDto
     {
+        public TokenDataDto Token { get; set; }
     }
+
+    public class TokenDataDto
+    {
+        public int Status { get; set; }
+        public string? Message { get; set; }
+        public string? Token { get; set; }
+        public UserDto? UserData { get; set; }
+    }
+
 }

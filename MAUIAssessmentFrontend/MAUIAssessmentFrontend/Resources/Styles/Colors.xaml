@@ -13,6 +13,15 @@
     <Color x:Key="SecondaryDarkText">#9880e5</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
 
+    <Color x:Key="PrimaryColor">#2E8B57</Color>
+    <!-- SeaGreen -->
+    <Color x:Key="SecondaryColor">#4682B4</Color>
+    <!-- SteelBlue -->
+    <Color x:Key="ButtonTextColor">White</Color>
+    <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="TextColor">#000000</Color>
+    <Color x:Key="EntryBackgroundColor">#F0F0F0</Color>
+
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="Magenta">#D600AA</Color>
