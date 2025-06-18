@@ -460,6 +460,38 @@ coverage*.info
 
 # Visual Studio code coverage results
 
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore Visual Studio and Rider IDE files
+.vs/
+.idea/
+*.user
+*.suo
+
+# Ignore dotnet specific artifacts
+*.userprefs
+*.dll
+*.exe
+*.log
+
+# Ignore publish artifacts
+*.pdb
+*.cache/
+*.config
+*.db
+*.db-shm
+*.db-wal
+
+# Ignore appsettings for local development if needed
+appsettings.Development.json
+
+# Ignore local secrets (optional, depending on setup)
+secrets.json
+
+
 # NCrunch
 
 # MightyMoose

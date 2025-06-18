@@ -5,6 +5,7 @@ using App.Core.Interfaces.IServices;
 using Domain.Utility;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Services
@@ -15,13 +16,15 @@ namespace Infrastructure.Services
         private readonly IImageService _imageService;
         private readonly IEmailService _emailService;
         private readonly IEmailTemplateService _emailTemplateService;
+        private readonly IJwtService _jwtService;
 
-        public AuthService(IUserRepository userRepository, IImageService imageService,IEmailService emailService,IEmailTemplateService emailTemplateService)
+        public AuthService(IUserRepository userRepository, IImageService imageService,IEmailService emailService,IEmailTemplateService emailTemplateService,IJwtService jwtService)
         {
             _userRepository = userRepository;
             _imageService = imageService;
             _emailService = emailService;
             _emailTemplateService = emailTemplateService;
+            _jwtService = jwtService;
         }
 
         public async Task RegisterAsync(User request, IFormFile? imageFile, string webRootPath)
@@ -67,6 +70,43 @@ namespace Infrastructure.Services
                 throw new Exception($"Registration failed: {ex.Message}");
             }
         }
+
+        public async Task<Object> LoginAsync(LoginUserDto request)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
+                {
+                    throw new ArgumentException("Username or Password cannot be empty.");
+                }
+
+                var user = await _userRepository.GetByEmailAsync(request.UserName);
+                if (user == null)
+                {
+                    throw new UnauthorizedAccessException("Invalid email or password.");
+                }
+
+                // ⚠️ This is for demo; in production, use a proper password hashing check
+                if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+                {
+                    throw new UnauthorizedAccessException("Invalid email or password.");
+                }
+
+                string token = await _jwtService.Authenticate(user.Id, user.Email, user.FirstName, user.LastName);
+                return new LoginResponseDto
+                {
+                    Status = 200,
+                    Message = "User Login SuccessFully",
+                    UserData = user,
+                    Token = token
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Login failed: {ex.Message}");
+            }
+        }
+    
 
         private string GetDefaultImageUrl()
         {

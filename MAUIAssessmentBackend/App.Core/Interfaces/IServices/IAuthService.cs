@@ -12,5 +12,7 @@ namespace App.Core.Interfaces.IServices
     public interface IAuthService
     {
         Task RegisterAsync(User request,  IFormFile? imageFile,string webRootPath);
+       
+        Task<Object> LoginAsync(LoginUserDto request);
     }
 }
