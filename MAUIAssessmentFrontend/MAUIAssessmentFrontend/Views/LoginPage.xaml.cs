@@ -1,9 +1,13 @@
-namespace MAUIAssessmentFrontend.Views;
+using MAUIAssessmentFrontend.ViewModels;
 
-public partial class LoginPage : ContentPage
+namespace MAUIAssessmentFrontend.Views
 {
-	public LoginPage()
-	{
-		InitializeComponent();
-	}
+    public partial class LoginPage : ContentPage
+    {
+        public LoginPage(LoginViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
+    }
 }
