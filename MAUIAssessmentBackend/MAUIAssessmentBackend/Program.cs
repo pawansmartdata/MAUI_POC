@@ -24,7 +24,8 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddSingleton<IHostingEnvService, HostingEnvService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IEmailTemplateService, EmailTemplateService>();
-builder.Services.AddScoped<IJwtService, JwtService>();  
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddHttpContextAccessor();
 
 
