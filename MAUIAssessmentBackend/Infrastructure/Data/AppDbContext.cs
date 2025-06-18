@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using App.Core.Entity;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,6 @@ namespace Infrastructure.Data
 
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<User> Users { get; set; }  
     }
 }
