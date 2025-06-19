@@ -22,12 +22,16 @@ namespace MAUIAssessmentFrontend
 
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
-                client.BaseAddress = new Uri("https://71d7-49-248-148-242.ngrok-free.app/");
+                client.BaseAddress = new Uri("https://6d22-49-248-148-242.ngrok-free.app/");
             });
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<SignUpPage>();
             builder.Services.AddTransient<SignUpViewModel>();
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<MainPageViewModel>();
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddSingleton<IUserService, UserService>();
             builder.Services.AddSingleton<IItemService, ItemService>();
 
