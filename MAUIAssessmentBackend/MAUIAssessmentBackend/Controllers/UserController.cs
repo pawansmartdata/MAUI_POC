@@ -10,9 +10,11 @@ namespace MAUIAssessmentBackend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
-        { 
+        private readonly IWebHostEnvironment _env;
+        public UserController(IUserService userService, IWebHostEnvironment env)
+        {
             _userService = userService;
+            _env = env;
         }
 
         [HttpGet("user/{id}")]
@@ -39,11 +41,11 @@ namespace MAUIAssessmentBackend.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateUserDto dto)
+        public async Task<IActionResult> Update(int id, [FromForm] UpdateUserDto dto)
         {
             try
             {
-                await _userService.UpdateUserAsync(id, dto);
+                await _userService.UpdateUserAsync(id, dto,_env.WebRootPath);
                 return Ok(new { message = "User updated successfully." });
             }
             catch (Exception ex)
