@@ -10,10 +10,12 @@ namespace MAUIAssessmentBackend.Controllers
     public class ItemController : ControllerBase
     {
         private readonly IItemService _itemService;
+        private readonly IWebHostEnvironment _env;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService, IWebHostEnvironment env)
         {
             _itemService = itemService;
+            _env = env;
         }
 
         [HttpGet]
@@ -33,21 +35,32 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ItemDto dto)
+        public async Task<IActionResult> CreateItem([FromForm] ItemDto dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var created = await _itemService.CreateItemAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+            try
+            {
+                var result = await _itemService.CreateItemAsync(dto, _env.WebRootPath);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ItemDto dto)
+        public async Task<IActionResult> UpdateItem(int id, [FromForm] ItemDto dto)
         {
-            var updated = await _itemService.UpdateItemAsync(id, dto);
-            if (!updated)
-                return NotFound();
-            return NoContent();
+            try
+            {
+                var success = await _itemService.UpdateItemAsync(id, dto, _env.WebRootPath);
+                if (!success) return NotFound(new { error = "Item not found" });
+                return Ok(new { message = "Item updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
@@ -56,7 +69,7 @@ namespace MAUIAssessmentBackend.Controllers
             var deleted = await _itemService.DeleteItemAsync(id);
             if (!deleted)
                 return NotFound();
-            return NoContent();
+            return Ok("Item Deleted SuccessFully");
         }
     }
 }
