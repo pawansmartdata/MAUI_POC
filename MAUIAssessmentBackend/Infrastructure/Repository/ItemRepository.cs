@@ -28,18 +28,18 @@ namespace Infrastructure.Repository
 
         public async Task DeleteAsync(Item item)
         {
-            _context.Items.Remove(item);
+            var itemDeleted=item.IsDeleted=true;
             await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Item>> GetAllAsync()
         {
-            return await _context.Items.ToListAsync();
+            return await _context.Items.Where(i => !i.IsDeleted).ToListAsync();
         }
 
         public async Task<Item?> GetByIdAsync(int id)
         {
-            return await _context.Items.FindAsync(id);
+            return await _context.Items.FirstOrDefaultAsync(i => i.Id == id && !i.IsDeleted);
         }
 
         public async Task UpdateAsync(Item item)

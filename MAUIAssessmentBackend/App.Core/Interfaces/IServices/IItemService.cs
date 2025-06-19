@@ -11,8 +11,9 @@ namespace App.Core.Interfaces.IServices
     {
         Task<IEnumerable<ItemDto>> GetAllItemsAsync();
         Task<ItemDto?> GetItemByIdAsync(int id);
-        Task<ItemDto> CreateItemAsync(ItemDto itemDto);
-        Task<bool> UpdateItemAsync(int id, ItemDto itemDto);
+        Task<ItemDto> CreateItemAsync(ItemDto dto, string webRootPath);
+        Task<bool> UpdateItemAsync(int id, ItemDto dto, string webRootPath);
+
         Task<bool> DeleteItemAsync(int id);
     }
 }
