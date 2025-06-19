@@ -56,6 +56,7 @@ namespace Infrastructure.Services
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
+                    PhoneNumber = request.PhoneNumber,
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash), // Make sure to hash in production
                     ProfileImagePath = profileImageUrl
                 };

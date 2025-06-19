@@ -16,6 +16,8 @@ namespace App.Core.Entity
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public string? ProfileImagePath { get; set; }
+        public string? PhoneNumber { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }
