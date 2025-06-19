@@ -56,9 +56,10 @@ namespace MAUIAssessmentFrontend.ViewModels
 
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
             LoadItemsCommand = new Command(async () => await LoadItemsAsync());
-            GoToAddItemCommand = new Command(async () => await Shell.Current.GoToAsync("//AddItemPage"));
-            LoadItemsCommand.Execute(null);
+            GoToAddItemCommand = new Command(async () => await Shell.Current.GoToAsync("AddItemPage"));
+            //LoadItemsCommand.Execute(null);
         }
+
 
         private async Task GoToProfileAsync()
         {

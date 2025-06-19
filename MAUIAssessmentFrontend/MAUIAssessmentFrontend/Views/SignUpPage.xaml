@@ -27,12 +27,18 @@
                    Keyboard="Email"
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
-
-            <Entry Placeholder="Password"
-                   IsPassword="True"
-                   Text="{Binding Password}"
+            
+            <Entry Placeholder="Phone Number"
+                   Text="{Binding PhoneNumber}"
+                   Keyboard="Telephone"  
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+
+            <Entry Placeholder="Password"
+                IsPassword="True"
+                Text="{Binding Password}"
+                TextColor="{DynamicResource TextColor}"
+                BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
             <Entry Placeholder="Confirm Password"
                    IsPassword="True"

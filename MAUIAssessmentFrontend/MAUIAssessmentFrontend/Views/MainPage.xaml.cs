@@ -3,9 +3,22 @@ using MAUIAssessmentFrontend.ViewModels;
 namespace MAUIAssessmentFrontend.Views;
 public partial class MainPage : ContentPage
 {
-    public MainPage(MainPageViewModel vm)
+    private readonly MainPageViewModel _viewModel;
+    public MainPage(MainPageViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = vm;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // This ensures data is refreshed every time the page appears
+        if (_viewModel.LoadItemsCommand.CanExecute(null))
+        {
+            _viewModel.LoadItemsCommand.Execute(null);
+        }
     }
 }
