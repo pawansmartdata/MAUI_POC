@@ -1,9 +1,13 @@
-namespace MAUIAssessmentFrontend.Views;
+using MAUIAssessmentFrontend.ViewModels;
 
-public partial class AddItemPage : ContentPage
+namespace MAUIAssessmentFrontend.Views
 {
-	public AddItemPage()
-	{
-		InitializeComponent();
-	}
+    public partial class AddItemPage : ContentPage
+    {
+        public AddItemPage(AddItemViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
+    }
 }
