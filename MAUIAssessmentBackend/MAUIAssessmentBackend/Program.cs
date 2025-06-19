@@ -12,7 +12,7 @@ builder.WebHost.UseWebRoot("wwwroot");
 // Add services to the container.
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MAUIConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MayurDatabase")));
 
 // --- Register Interfaces with Implementations ---
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
