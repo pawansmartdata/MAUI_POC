@@ -45,6 +45,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public ICommand GoToProfileCommand { get; }
         public ICommand LoadItemsCommand { get; }
+        public ICommand GoToAddItemCommand { get; }
 
         public MainPageViewModel(IItemService itemService)
         {
@@ -55,6 +56,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
             LoadItemsCommand = new Command(async () => await LoadItemsAsync());
+            GoToAddItemCommand = new Command(async () => await Shell.Current.GoToAsync("//AddItemPage"));
             LoadItemsCommand.Execute(null);
         }
 

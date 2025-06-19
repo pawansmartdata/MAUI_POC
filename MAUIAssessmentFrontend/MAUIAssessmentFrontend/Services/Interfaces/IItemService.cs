@@ -10,5 +10,6 @@ namespace MAUIAssessmentFrontend.Services.Interfaces
     public interface IItemService
     {
         Task<List<ItemDto>> GetAllItemsAsync();
+        Task<bool> AddItemAsync(ItemDto item);
     }
 }

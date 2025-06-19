@@ -6,24 +6,25 @@
              x:Class="MAUIAssessmentFrontend.Views.MainPage"
              Title="Home">
 
-    <!--<ContentPage.BindingContext>
-        <viewmodels:MainPageViewModel />
-    </ContentPage.BindingContext>-->
+    
 
-    <Grid RowDefinitions="Auto, *" Padding="10">
 
-        <!-- Top Bar -->
-        <Grid Row="0" ColumnDefinitions="*, Auto" Padding="0,10">
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        
+
+        <!-- Custom Top Header -->
+        <Grid ColumnDefinitions="*,Auto">
             <Label Text="{Binding UserName, StringFormat='Welcome, {0}'}"
-                   FontSize="24"
+                   FontSize="20"
                    VerticalOptions="Center"
-                   HorizontalOptions="StartAndExpand" />
+                   TextColor="Black" />
 
             <Frame Padding="2"
                    HeightRequest="40"
                    WidthRequest="40"
-                   HasShadow="False"
                    CornerRadius="20"
+                   HasShadow="False"
                    VerticalOptions="Center"
                    HorizontalOptions="End">
                 <Image Source="{Binding ProfileImage}"
@@ -37,14 +38,22 @@
             </Frame>
         </Grid>
 
-        <!-- Main Item Grid -->
-        <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Items}"
-                        SelectionMode="None"
-                        Margin="0,10,0,0">
+        <Button Text="Add Item"
+            Command="{Binding GoToAddItemCommand}"
+            HorizontalOptions="End"
+            WidthRequest="340"
+            Margin="10"
+            BackgroundColor="DodgerBlue"
+            TextColor="White"
+            CornerRadius="8"
+            Padding="12,6" />
+
+        <!-- Main Content: Item Grid -->
+        <CollectionView ItemsSource="{Binding Items}"
+                        SelectionMode="None">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
-                                 Span="2"
+                                 Span="1"
                                  HorizontalItemSpacing="10"
                                  VerticalItemSpacing="10" />
             </CollectionView.ItemsLayout>
@@ -56,7 +65,7 @@
                            Padding="0"
                            HasShadow="True"
                            BackgroundColor="White">
-                        <Grid ColumnDefinitions="125,*">
+                        <Grid ColumnDefinitions="200,*">
                             <Image Source="{Binding Image}"
                                    Aspect="AspectFill"
                                    WidthRequest="125"
@@ -66,6 +75,7 @@
                                                  Padding="10"
                                                  VerticalOptions="Center">
                                 <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" FontSize="16" FontAttributes="Italic" />
                                 <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}" FontSize="14" />
                                 <Label Text="{Binding Longitude, StringFormat='Long: {0:F4}'}" FontSize="14" />
                             </VerticalStackLayout>
@@ -75,5 +85,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-    </Grid>
+    </VerticalStackLayout>
 </ContentPage>

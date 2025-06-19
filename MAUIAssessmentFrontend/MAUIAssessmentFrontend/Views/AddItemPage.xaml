@@ -2,11 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIAssessmentFrontend.Views.AddItemPage"
-             Title="AddItemPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Add Item">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Entry Placeholder="Item Name"
+                   Text="{Binding Name}" />
+
+            <Editor Placeholder="Description"
+                    HeightRequest="100"
+                    Text="{Binding Description}" />
+
+            <Entry Placeholder="Latitude"
+                   Keyboard="Numeric"
+                   Text="{Binding Latitude}" />
+
+            <Entry Placeholder="Longitude"
+                   Keyboard="Numeric"
+                   Text="{Binding Longitude}" />
+
+            <Image Source="{Binding SelectedImage}"
+                   HeightRequest="200"
+                   WidthRequest="200"
+                   Aspect="AspectFill"
+                   BackgroundColor="LightGray"
+                   HorizontalOptions="Center" />
+            <Button Text="Pick Image"
+                    Command="{Binding PickImageCommand}" />
+
+            <Button Text="Submit"
+                    Command="{Binding SubmitCommand}" 
+                    BackgroundColor="Green"
+                    TextColor="White"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
