@@ -133,7 +133,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 Description = Description.Trim(),
                 Latitude = lat,
                 Longitude = lng,
-                Image = ImagePath
+                ItemImage = ImagePath
             };
 
             var success = await _itemService.AddItemAsync(item);

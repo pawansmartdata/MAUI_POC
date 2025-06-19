@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace MAUIAssessmentFrontend.Models
 {
-    public class ItemDto
+    public class ItemResponseDto
     {
-        public int Id { get; set; } // or Guid
         public string Name { get; set; }
-        public string ItemImage { get; set; } // image URL
         public string Description { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public string? ItemImageUrl { get; set; } // For image URL
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
-
 }

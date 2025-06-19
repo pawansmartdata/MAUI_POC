@@ -19,14 +19,15 @@ namespace MAUIAssessmentFrontend
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            var uri = new Uri("https://3caf-49-248-148-242.ngrok-free.app/");
 
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
-                client.BaseAddress = new Uri("https://d43e-49-248-148-242.ngrok-free.app/");
+                client.BaseAddress = uri;
             });
             builder.Services.AddHttpClient<IItemService, ItemService>(client =>
             {
-                client.BaseAddress = new Uri("https://d43e-49-248-148-242.ngrok-free.app/");
+                client.BaseAddress = uri;
             });
 
             builder.Services.AddTransient<LoginPage>();

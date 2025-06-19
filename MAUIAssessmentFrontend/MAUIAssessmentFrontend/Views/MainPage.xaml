@@ -4,53 +4,56 @@
              xmlns:viewmodels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
              xmlns:model="clr-namespace:MAUIAssessmentFrontend.Models"
              x:Class="MAUIAssessmentFrontend.Views.MainPage"
-             Title="Home">
+             Title="Home"
+             x:DataType="viewmodels:MainPageViewModel">
 
-    
+    <!-- Layout root MUST be Grid to enable proper expansion -->
+    <Grid RowDefinitions="Auto, *" Padding="10">
 
+        <!-- Top Area: Welcome and Add Button -->
+        <VerticalStackLayout Spacing="10" Grid.Row="0">
 
-    <VerticalStackLayout Padding="10" Spacing="10">
+            <!-- Header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="{Binding UserName, StringFormat='Welcome, {0}'}"
+                       FontSize="20"
+                       VerticalOptions="Center"
+                       TextColor="Black" />
 
-        
-
-        <!-- Custom Top Header -->
-        <Grid ColumnDefinitions="*,Auto">
-            <Label Text="{Binding UserName, StringFormat='Welcome, {0}'}"
-                   FontSize="20"
-                   VerticalOptions="Center"
-                   TextColor="Black" />
-
-            <Frame Padding="2"
-                   HeightRequest="40"
-                   WidthRequest="40"
-                   CornerRadius="20"
-                   HasShadow="False"
-                   VerticalOptions="Center"
-                   HorizontalOptions="End">
-                <Image Source="{Binding ProfileImage}"
-                       Aspect="AspectFill"
+                <Frame Padding="2"
                        HeightRequest="40"
-                       WidthRequest="40">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-            </Frame>
-        </Grid>
+                       WidthRequest="40"
+                       CornerRadius="20"
+                       HasShadow="False"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End">
+                    <Image Source="{Binding ProfileImage}"
+                           Aspect="AspectFill"
+                           HeightRequest="40"
+                           WidthRequest="40">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Frame>
+            </Grid>
 
-        <Button Text="Add Item"
-            Command="{Binding GoToAddItemCommand}"
-            HorizontalOptions="End"
-            WidthRequest="340"
-            Margin="10"
-            BackgroundColor="DodgerBlue"
-            TextColor="White"
-            CornerRadius="8"
-            Padding="12,6" />
+            <!-- Add Button -->
+            <Button Text="Add Item"
+                    Command="{Binding GoToAddItemCommand}"
+                    HorizontalOptions="End"
+                    BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Padding="12,6"
+                    WidthRequest="150" />
+        </VerticalStackLayout>
 
-        <!-- Main Content: Item Grid -->
-        <CollectionView ItemsSource="{Binding Items}"
-                        SelectionMode="None">
+        <!-- Scrollable Collection -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None"
+                        VerticalOptions="FillAndExpand">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="1"
@@ -59,14 +62,14 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:ItemDto">
+                <DataTemplate x:DataType="model:ItemResponseDto">
                     <Frame HeightRequest="180"
                            CornerRadius="12"
                            Padding="0"
                            HasShadow="True"
                            BackgroundColor="White">
                         <Grid ColumnDefinitions="200,*">
-                            <Image Source="{Binding Image}"
+                            <Image Source="{Binding ItemImageUrl}"
                                    Aspect="AspectFill"
                                    WidthRequest="125"
                                    HeightRequest="125" />
@@ -84,6 +87,6 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
+
