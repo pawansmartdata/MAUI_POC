@@ -41,7 +41,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public bool IsNotBusy => !IsBusy;
 
-        public ObservableCollection<ItemDto> Items { get; } = new();
+        public ObservableCollection<ItemResponseDto> Items { get; } = new();
 
         public ICommand GoToProfileCommand { get; }
         public ICommand LoadItemsCommand { get; }
@@ -78,6 +78,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
+                    Console.Write("Item image is " + item.ItemImageUrl);
                 }
             }
             catch (Exception ex)

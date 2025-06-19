@@ -19,7 +19,7 @@ namespace MAUIAssessmentFrontend.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<ItemDto>> GetAllItemsAsync()
+        public async Task<List<ItemResponseDto>> GetAllItemsAsync()
         {
             try
             {
@@ -29,7 +29,7 @@ namespace MAUIAssessmentFrontend.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return JsonSerializer.Deserialize<List<ItemDto>>(json, new JsonSerializerOptions
+                    return JsonSerializer.Deserialize<List<ItemResponseDto>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
@@ -40,13 +40,33 @@ namespace MAUIAssessmentFrontend.Services
                 Console.WriteLine($"Error: {ex.Message}");
             }
 
-            return new List<ItemDto>();
+            return new List<ItemResponseDto>();
         }
         public async Task<bool> AddItemAsync(ItemDto item)
+        
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/Item", item);
+                using var formData = new MultipartFormDataContent();
+
+                //formData.Add(new StringContent(item.Id.ToString()), "Id");
+                formData.Add(new StringContent(item.Name ?? ""), "Name");
+                //formData.Add(new StringContent(item.ItemImage ?? ""), "ItemImage");
+                formData.Add(new StringContent(item.Description ?? ""), "Description");
+                formData.Add(new StringContent(item.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture)), "Latitude");
+                formData.Add(new StringContent(item.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture)), "Longitude");
+
+                if (!string.IsNullOrWhiteSpace(item.ItemImage) && File.Exists(item.ItemImage))
+                {
+                    var stream = File.OpenRead(item.ItemImage);
+                    var fileContent = new StreamContent(stream);
+                    fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/jpeg"); // Or detect MIME type
+
+                    formData.Add(fileContent, "ItemImage", Path.GetFileName(item.ItemImage));
+                }
+
+                var response = await _httpClient.PostAsync("api/Item", formData);
+                
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
