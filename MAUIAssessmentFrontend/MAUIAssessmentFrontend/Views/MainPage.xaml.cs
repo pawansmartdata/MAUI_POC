@@ -1,9 +1,11 @@
-namespace MAUIAssessmentFrontend.Views;
+using MAUIAssessmentFrontend.ViewModels;
 
+namespace MAUIAssessmentFrontend.Views;
 public partial class MainPage : ContentPage
 {
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    public MainPage(MainPageViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
+    }
 }

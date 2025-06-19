@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MAUIAssessmentFrontend.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace MAUIAssessmentFrontend.Services.Interfaces
 {
     public interface IItemService
     {
+        Task<List<ItemDto>> GetAllItemsAsync();
     }
 }
