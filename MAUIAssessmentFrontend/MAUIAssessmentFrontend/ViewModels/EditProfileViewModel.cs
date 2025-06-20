@@ -16,6 +16,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             _userService = userService;
             PickImageCommand = new Command(async () => await PickImageAsync());
             SaveCommand = new Command(async () => await SaveProfileAsync());
+            GoBackCommand = new Command(async () => await GoBack());
             LoadProfileAsync();
         }
 
@@ -30,6 +31,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public ICommand PickImageCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand GoBackCommand { get; }
 
         //private async void LoadExistingProfile()
         //{

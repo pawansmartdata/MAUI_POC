@@ -16,6 +16,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             _itemService = itemService;
             SaveCommand = new Command(async () => await SaveAsync());
+            GoBackCommand = new Command(async () => await GoBack());
         }
 
         private int _id;
@@ -34,6 +35,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         public double Longitude { get => _longitude; set { _longitude = value; OnPropertyChanged(); } }
 
         public ICommand SaveCommand { get; }
+        public ICommand GoBackCommand { get; }
 
         private async Task LoadItemAsync()
         {
