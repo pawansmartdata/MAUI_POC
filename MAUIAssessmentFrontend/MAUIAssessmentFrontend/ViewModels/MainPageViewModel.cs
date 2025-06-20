@@ -53,7 +53,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             _itemService = itemService;
 
             UserName = Preferences.Get("UserName", "User");
-            ProfileImage = Preferences.Get("UserImage", "default_image_url");
+            ProfileImage = Preferences.Get("userImage", "default_image_url");
 
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
             LoadItemsCommand = new Command(async () => await LoadItemsAsync());

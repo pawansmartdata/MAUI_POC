@@ -10,7 +10,7 @@
     <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate views:LoginPage}" />
     <ShellContent Route="SignUpPage" ContentTemplate="{DataTemplate views:SignUpPage}" />
     <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
-    <!--<ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate views:ProfilePage}" />-->
+    <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate views:ProfilePage}" />
     <ShellContent Route="AddItemPage" ContentTemplate="{DataTemplate views:AddItemPage}" />
     <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />
     <ShellContent Route="EditProfilePage" ContentTemplate="{DataTemplate views:EditProfilePage}" />

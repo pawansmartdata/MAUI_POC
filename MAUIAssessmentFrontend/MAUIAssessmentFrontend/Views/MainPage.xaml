@@ -85,7 +85,7 @@
                             <VerticalStackLayout Grid.Column="1"
                                                  Padding="10"
                                                  VerticalOptions="Center">
-                                <Label Text="{Binding Id} " />
+                                
                                 <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" FontSize="16" FontAttributes="Italic" />
                                 <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}" FontSize="14" />

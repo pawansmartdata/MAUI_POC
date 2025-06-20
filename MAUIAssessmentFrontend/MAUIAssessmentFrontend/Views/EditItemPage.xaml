@@ -7,6 +7,11 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
+            <Button Text="Back"
+                Command="{Binding GoBackCommand}"
+                BackgroundColor="LightGray"
+                TextColor="Black"
+                HorizontalOptions="Start" />
             <Entry Text="{Binding Name}" Placeholder="Name" />
             <Editor Text="{Binding Description}" Placeholder="Description" HeightRequest="100"/>
             <Entry Text="{Binding Latitude}" Placeholder="Latitude" Keyboard="Numeric"/>
