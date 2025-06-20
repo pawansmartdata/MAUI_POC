@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Views;
 using Microsoft.Maui.Storage;
 
 namespace MAUIAssessmentFrontend.ViewModels
@@ -10,12 +11,17 @@ namespace MAUIAssessmentFrontend.ViewModels
     {
         private readonly IUserService _userService;
 
+        public ICommand LogoutCommand { get; }
 
+        public ICommand EditProfileCommand { get; }
+        public ICommand GoBackCommand { get; }
 
         public ProfileViewModel(IUserService userService)
         {
             _userService = userService;
             LogoutCommand = new Command(async () => await LogoutAsync());
+            GoBackCommand = new Command(async () => await GoBack());
+            EditProfileCommand = new Command(async () => await Shell.Current.GoToAsync("EditProfilePage"));
         }
 
         private string _firstName;
@@ -78,8 +84,11 @@ namespace MAUIAssessmentFrontend.ViewModels
             set { _phoneNumber = value; OnPropertyChanged(); }
         }
 
-        public ICommand LogoutCommand { get; }
 
+        public async Task GoBack()
+        {
+            Shell.Current.GoToAsync("//MainPage");
+        }
         public async Task LoadProfileAsync()
         {
             try

@@ -2,6 +2,7 @@
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 
 namespace MAUIAssessmentFrontend.ViewModels
@@ -15,7 +16,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             _userService = userService;
             PickImageCommand = new Command(async () => await PickImageAsync());
             SaveCommand = new Command(async () => await SaveProfileAsync());
-            LoadExistingProfile();
+            LoadProfileAsync();
         }
 
         private string _firstName, _lastName, _email, _phoneNumber, _profileImage;
@@ -30,14 +31,23 @@ namespace MAUIAssessmentFrontend.ViewModels
         public ICommand PickImageCommand { get; }
         public ICommand SaveCommand { get; }
 
-        private void LoadExistingProfile()
-        {
-            FirstName = Preferences.Get("FirstName", "");
-            LastName = Preferences.Get("LastName", "");
-            Email = Preferences.Get("Email", "");
-            PhoneNumber = Preferences.Get("PhoneNumber", "");
-            ProfileImage = Preferences.Get("UserImage", "default_profile.png");
-        }
+        //private async void LoadExistingProfile()
+        //{
+        //    //FirstName = Preferences.Get("FirstName", "");
+        //    //LastName = Preferences.Get("LastName", "");
+        //    //Email = Preferences.Get("Email", "");
+        //    //PhoneNumber = Preferences.Get("PhoneNumber", "");
+        //    //ProfileImage = Preferences.Get("UserImage", "default_profile.png");
+        //    var id = Preferences.Get("userId",0);
+        //    var profile = await _userService.GetUserByIdAsync(id);
+        //    var data = profile.Data;
+        //    FirstName = data.FirstName;
+        //    LastName = data.LastName;
+        //    Email = data.Email;
+        //    PhoneNumber = data.PhoneNumber;
+        //    ProfileImage = data.ProfileImage;
+
+        //}
 
         private async Task PickImageAsync()
         {
@@ -50,9 +60,68 @@ namespace MAUIAssessmentFrontend.ViewModels
             if (_selectedImage != null)
                 ProfileImage = _selectedImage.FullPath;
         }
+        public async Task GoBack()
+        {
+            Shell.Current.GoToAsync("//MainPage");
+        }
+
+        public async Task LoadProfileAsync()
+        {
+            try
+            {
+                int userId = Preferences.Get("userId", 0);
+                if (userId == 0)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "User ID not found.", "OK");
+                    return;
+                }
+
+                var user = await _userService.GetUserByIdAsync(userId);
+                var data = user.Data;
+
+                if (data != null)
+                {
+                    FirstName = data.FirstName;
+                    LastName = data.LastName;
+                    Email = data.Email;
+                    PhoneNumber = data.PhoneNumber;
+                    ProfileImage = data.ProfileImage ?? "default_profile.png";
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
 
         private async Task SaveProfileAsync()
         {
+            // Validations
+            if (string.IsNullOrWhiteSpace(FirstName) || FirstName.Length > 20)
+            {
+                await App.Current.MainPage.DisplayAlert("Validation Error", "First name is required and must be less than or equal to 20 characters.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(LastName) || LastName.Length > 20)
+            {
+                await App.Current.MainPage.DisplayAlert("Validation Error", "Last name is required and must be less than or equal to 20 characters.", "OK");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                await App.Current.MainPage.DisplayAlert("Validation Error", "Please enter a valid email address.", "OK");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(PhoneNumber) || !PhoneNumber.All(char.IsDigit) || PhoneNumber.Length != 10)
+            {
+                await App.Current.MainPage.DisplayAlert("Validation Error", "Phone number must be exactly 10 digits and contain only numbers.", "OK");
+                return;
+            }
+
+            // Proceed to update
             int userId = Preferences.Get("userId", 0);
             if (userId == 0)
             {
@@ -71,7 +140,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                     Preferences.Set("UserImage", ProfileImage);
 
                 await App.Current.MainPage.DisplayAlert("Success", "Profile updated!", "OK");
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("ProfilePage");
             }
             else
             {
