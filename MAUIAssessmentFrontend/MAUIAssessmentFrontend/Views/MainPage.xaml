@@ -46,7 +46,8 @@
                     TextColor="White"
                     CornerRadius="8"
                     Padding="12,6"
-                    WidthRequest="150" />
+                    Margin="0,0,0,5"
+                    WidthRequest="362" />
         </VerticalStackLayout>
 
         <!-- Scrollable Collection -->

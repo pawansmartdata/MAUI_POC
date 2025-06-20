@@ -6,6 +6,14 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Back Button -->
+            <Button Text="Back"
+                    Command="{Binding GoBackCommand}"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    HorizontalOptions="Start" />
+
             <Entry Placeholder="Item Name"
                    Text="{Binding Name}" />
 
@@ -21,12 +29,13 @@
                    Keyboard="Numeric"
                    Text="{Binding Longitude}" />
 
-            <Image Source="{Binding SelectedImage}"
+            <Image Source="{Binding ImagePath}"
                    HeightRequest="200"
                    WidthRequest="200"
                    Aspect="AspectFill"
                    BackgroundColor="LightGray"
                    HorizontalOptions="Center" />
+
             <Button Text="Pick Image"
                     Command="{Binding PickImageCommand}" />
 

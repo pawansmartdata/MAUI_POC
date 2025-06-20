@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MAUIAssessmentFrontend.Views.EditProfilePage"
+             Title="Edit Profile">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Frame HeightRequest="120"
+                   WidthRequest="120"
+                   CornerRadius="60"
+                   IsClippedToBounds="True"
+                   HorizontalOptions="Center"
+                   HasShadow="False"
+                   BorderColor="Gray">
+                <Image Source="{Binding ProfileImage}"
+                       Aspect="AspectFill"
+                       HeightRequest="120"
+                       WidthRequest="120">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PickImageCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <Entry Placeholder="First Name" Text="{Binding FirstName}" />
+            <Entry Placeholder="Last Name" Text="{Binding LastName}" />
+            <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
+            <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" Keyboard="Telephone" />
+
+            <Button Text="Save"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Padding="10" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

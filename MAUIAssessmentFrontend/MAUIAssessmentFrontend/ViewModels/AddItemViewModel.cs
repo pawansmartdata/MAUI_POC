@@ -16,6 +16,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             _itemService = itemService;
             PickImageCommand = new Command(async () => await PickImageAsync());
             SubmitCommand = new Command(async () => await SubmitAsync());
+            GoBackCommand = new Command(async () => await GoBack());
         }
 
         private string _name;
@@ -55,7 +56,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public ICommand PickImageCommand { get; }
         public ICommand SubmitCommand { get; }
-
+        public ICommand GoBackCommand { get; }
         private async Task PickImageAsync()
         {
             try
@@ -81,6 +82,10 @@ namespace MAUIAssessmentFrontend.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", $"Image error: {ex.Message}", "OK");
             }
+        }
+        public async Task GoBack()
+        {
+            Shell.Current.GoToAsync("//MainPage");
         }
 
         private async Task SubmitAsync()
