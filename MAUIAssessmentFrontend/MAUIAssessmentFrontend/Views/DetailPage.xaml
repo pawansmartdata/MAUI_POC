@@ -38,7 +38,7 @@
                 CornerRadius="8"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding EditCommand}" />
-
+             
                 <Button Text="Delete"
                 BackgroundColor="#DC3545"
                 TextColor="White"

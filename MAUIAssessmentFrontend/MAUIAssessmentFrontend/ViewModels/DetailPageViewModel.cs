@@ -1,5 +1,6 @@
 ﻿using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Views;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -65,10 +66,19 @@ namespace MAUIAssessmentFrontend.ViewModels
         //}
 
 
-        private void OnEdit()
+        private async void OnEdit()
         {
-            Shell.Current.GoToAsync($"EditItemPage?itemId={Item.Id}");
+            if (Item != null)
+            {
+                await Shell.Current.GoToAsync($"{nameof(EditItemPage)}?itemId={Item.Id}");
+            }
         }
+
+        //private async void OnEdit()
+        //{
+        //    if (Item != null)
+        //        await Shell.Current.GoToAsync($"{nameof(EditItemPage)}?itemId={Item.Id}");
+        //}
 
         private async Task OnDelete()
         {
@@ -85,7 +95,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             if (success)
             {
                 await Application.Current.MainPage.DisplayAlert("Deleted", "Item was deleted successfully", "OK");
-                await Shell.Current.GoToAsync("..");
+                await GoBack();
             }
             else
             {
@@ -113,5 +123,11 @@ namespace MAUIAssessmentFrontend.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private async Task GoBack()
+        {
+            await Shell.Current.GoToAsync("//MainPage"); 
+        }
+
     }
 }
