@@ -8,6 +8,7 @@ namespace MAUIAssessmentFrontend.Models
 {
     public class ItemResponseDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string? ItemImageUrl { get; set; } // For image URL
