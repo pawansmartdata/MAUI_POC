@@ -3,13 +3,14 @@
     x:Class="MAUIAssessmentFrontend.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:views="clr-namespace:MAUIAssessmentFrontend.Views">
+    xmlns:views="clr-namespace:MAUIAssessmentFrontend.Views"
+    Shell.FlyoutBehavior="Disabled">
 
     <!-- Route registrations -->
     <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate views:LoginPage}" />
     <ShellContent Route="SignUpPage" ContentTemplate="{DataTemplate views:SignUpPage}" />
     <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
-    <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate views:ProfilePage}" />
+    <!--<ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate views:ProfilePage}" />-->
     <ShellContent Route="AddItemPage" ContentTemplate="{DataTemplate views:AddItemPage}" />
     <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />
     <ShellContent Route="EditProfilePage" ContentTemplate="{DataTemplate views:EditProfilePage}" />

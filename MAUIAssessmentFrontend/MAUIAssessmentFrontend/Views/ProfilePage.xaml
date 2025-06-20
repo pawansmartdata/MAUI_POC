@@ -10,6 +10,12 @@
     </ContentPage.BindingContext> -->
 
     <VerticalStackLayout Padding="20" Spacing="20">
+        <Button Text="Back"
+                Command="{Binding GoBackCommand}"
+                BackgroundColor="LightGray"
+                TextColor="Black"
+                HorizontalOptions="Start" />
+        
 
         <Frame Padding="0"
                HeightRequest="120"
@@ -25,6 +31,14 @@
                    HeightRequest="120"
                    WidthRequest="120" />
         </Frame>
+        <Button Text="Edit Profile"
+                Command="{Binding EditProfileCommand}"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="DodgerBlue"
+                TextColor="White"
+                CornerRadius="10"
+           
+                Padding="10" />
 
         <Label Text="{Binding UserName}" FontSize="24" HorizontalOptions="Center"/>
         <Label Text="{Binding Email}" FontSize="18" FontAttributes="Italic" HorizontalOptions="Center"/>
@@ -32,6 +46,7 @@
 
         <Button Text="Logout"
                 Command="{Binding LogoutCommand}"
+                HorizontalOptions="Fill"
                 BackgroundColor="Red"
                 TextColor="White"
                 CornerRadius="10"
