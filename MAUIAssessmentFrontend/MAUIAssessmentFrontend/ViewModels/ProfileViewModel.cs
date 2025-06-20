@@ -1,30 +1,117 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using MAUIAssessmentFrontend.Services.Interfaces;
 using Microsoft.Maui.Storage;
 
 namespace MAUIAssessmentFrontend.ViewModels
 {
     public class ProfileViewModel : INotifyPropertyChanged
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string ProfileImage { get; set; }
+        private readonly IUserService _userService;
+
+
+
+        public ProfileViewModel(IUserService userService)
+        {
+            _userService = userService;
+            LogoutCommand = new Command(async () => await LogoutAsync());
+        }
+
+        private string _firstName;
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (_firstName != value)
+                {
+                    _firstName = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(UserName)); // Trigger update for combined property
+                }
+            }
+        }
+
+        private string _lastName;
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (_lastName != value)
+                {
+                    _lastName = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(UserName)); // Trigger update for combined property
+                }
+            }
+        }
+
+        public string UserName => $"{FirstName} {LastName}".Trim();
+
+        //private string _userName;
+        //public string UserName
+        //{
+        //    get => _userName;
+        //    set { _userName = value; OnPropertyChanged(); }
+        //}
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set { _email = value; OnPropertyChanged(); }
+        }
+
+        private string _profileImage;
+        public string ProfileImage
+        {
+            get => _profileImage;
+            set { _profileImage = value; OnPropertyChanged(); }
+        }
+
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set { _phoneNumber = value; OnPropertyChanged(); }
+        }
 
         public ICommand LogoutCommand { get; }
 
-        public ProfileViewModel()
+        public async Task LoadProfileAsync()
         {
-            UserName = Preferences.Get("UserName", "User");
-            Email = Preferences.Get("UserEmail", "user@example.com");
-            ProfileImage = Preferences.Get("UserImage", "default_profile_image_url");
+            try
+            {
+                int userId = Preferences.Get("userId", 0);
+                if (userId == 0)
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "User ID not found.", "OK");
+                    return;
+                }
 
-            LogoutCommand = new Command(Logout);
+                var user = await _userService.GetUserByIdAsync(userId);
+                var data = user.Data;
+                if (data != null)
+                {
+                    FirstName = data.FirstName;
+                    LastName = data.LastName;
+             
+                    Email = data.Email;
+                    PhoneNumber = data.PhoneNumber;
+                    ProfileImage = data.ProfileImage ?? "default_profile.png";
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
-        private async void Logout()
+        public async Task LogoutAsync()
         {
-            Preferences.Clear();
+            Preferences.Clear(); 
             await Shell.Current.GoToAsync("//LoginPage");
         }
 
@@ -32,4 +119,5 @@ namespace MAUIAssessmentFrontend.ViewModels
         private void OnPropertyChanged([CallerMemberName] string name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
+
 }

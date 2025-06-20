@@ -5,9 +5,9 @@
              xmlns:viewmodels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
              Title="Profile">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <viewmodels:ProfileViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext> -->
 
     <VerticalStackLayout Padding="20" Spacing="20">
 

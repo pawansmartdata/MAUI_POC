@@ -19,13 +19,17 @@ namespace MAUIAssessmentFrontend
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-            var uri = new Uri("https://d662-49-248-148-242.ngrok-free.app/");
+            var uri = new Uri("https://1ee9-49-248-148-242.ngrok-free.app/");
 
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
                 client.BaseAddress = uri;
             });
             builder.Services.AddHttpClient<IItemService, ItemService>(client =>
+            {
+                client.BaseAddress = uri;
+            });
+            builder.Services.AddHttpClient<IUserService, UserService>(client =>
             {
                 client.BaseAddress = uri;
             });
@@ -40,7 +44,8 @@ namespace MAUIAssessmentFrontend
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<AddItemPage>();
             builder.Services.AddTransient<AddItemViewModel>();
-            builder.Services.AddSingleton<IUserService, UserService>();
+
+            //builder.Services.AddSingleton<IUserService, UserService>();
             //builder.Services.AddSingleton<IItemService, ItemService>();
 
 
