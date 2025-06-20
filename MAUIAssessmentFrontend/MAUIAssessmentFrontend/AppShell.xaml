@@ -11,6 +11,9 @@
     <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}" />
     <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate views:ProfilePage}" />
     <ShellContent Route="AddItemPage" ContentTemplate="{DataTemplate views:AddItemPage}" />
-    <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />
+    <!--<ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />
+    <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />-->
+   
+
 
 </Shell>

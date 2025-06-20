@@ -46,6 +46,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         public ICommand GoToProfileCommand { get; }
         public ICommand LoadItemsCommand { get; }
         public ICommand GoToAddItemCommand { get; }
+        public ICommand GoToDetailCommand { get; }
 
         public MainPageViewModel(IItemService itemService)
         {
@@ -57,6 +58,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
             LoadItemsCommand = new Command(async () => await LoadItemsAsync());
             GoToAddItemCommand = new Command(async () => await Shell.Current.GoToAsync("//AddItemPage"));
+            GoToDetailCommand = new Command<int>(async (Id) => await GoToDetailPage(Id));
             LoadItemsCommand.Execute(null);
         }
 
@@ -78,6 +80,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
+
                     Console.Write("Item image is " + item.ItemImageUrl);
                 }
             }
@@ -94,5 +97,11 @@ namespace MAUIAssessmentFrontend.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        private async Task GoToDetailPage(int Id)
+        {
+            Console.WriteLine("Id is" + Id);
+            await Shell.Current.GoToAsync($"DetailPage?itemId={Id}");
+        }
     }
 }

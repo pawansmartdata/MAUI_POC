@@ -103,7 +103,7 @@ namespace Infrastructure.Services
         // --- Mapping helpers ---
         private static ItemDto ToDto(Item item) => new ItemDto
         {
-            
+            Id = item.Id,
             Name = item.Name,
             Description = item.Description,
             ItemImageUrl = item.ItemImageUrl,
@@ -113,6 +113,7 @@ namespace Infrastructure.Services
 
         private static Item FromDto(ItemDto dto) => new Item
         {
+            Id = dto.Id,
             Name = dto.Name,
             Description = dto.Description,
             ItemImageUrl=dto.ItemImageUrl,

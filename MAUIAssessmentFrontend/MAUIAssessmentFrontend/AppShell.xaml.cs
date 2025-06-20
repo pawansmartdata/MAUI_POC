@@ -15,6 +15,7 @@ namespace MAUIAssessmentFrontend
             Routing.RegisterRoute(nameof(ProfilePage), typeof(Views.ProfilePage));
             Routing.RegisterRoute(nameof(AddItemPage), typeof(Views.AddItemPage));
             Routing.RegisterRoute(nameof(DetailPage), typeof(Views.DetailPage));
+            
         }
     }
 }
