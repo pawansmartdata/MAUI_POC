@@ -7,13 +7,12 @@
              Title="Home"
              x:DataType="viewmodels:MainPageViewModel">
 
-    <!-- Layout root MUST be Grid to enable proper expansion -->
     <Grid RowDefinitions="Auto, *" Padding="10">
 
-        <!-- Top Area: Welcome and Add Button -->
+        <!-- Header Section -->
         <VerticalStackLayout Spacing="10" Grid.Row="0">
 
-            <!-- Header -->
+            <!-- Greeting and Profile Image -->
             <Grid ColumnDefinitions="*,Auto">
                 <Label Text="{Binding UserName, StringFormat='Welcome, {0}'}"
                        FontSize="20"
@@ -38,7 +37,7 @@
                 </Frame>
             </Grid>
 
-            <!-- Add Button -->
+            <!-- Add Item Button -->
             <Button Text="Add Item"
                     Command="{Binding GoToAddItemCommand}"
                     HorizontalOptions="End"
@@ -50,7 +49,7 @@
                     WidthRequest="362" />
         </VerticalStackLayout>
 
-        <!-- Scrollable Collection -->
+        <!-- Items List -->
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Items}"
                         SelectionMode="None"
@@ -63,12 +62,20 @@
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
+                
                 <DataTemplate x:DataType="model:ItemResponseDto">
                     <Frame HeightRequest="180"
                            CornerRadius="12"
                            Padding="0"
                            HasShadow="True"
                            BackgroundColor="White">
+                        <!-- Tap Gesture -->
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToDetailCommand}"
+                                CommandParameter="{Binding Id}" />
+                        </Frame.GestureRecognizers>
+
                         <Grid ColumnDefinitions="200,*">
                             <Image Source="{Binding ItemImageUrl}"
                                    Aspect="AspectFill"
@@ -78,6 +85,7 @@
                             <VerticalStackLayout Grid.Column="1"
                                                  Padding="10"
                                                  VerticalOptions="Center">
+                                <Label Text="{Binding Id} " />
                                 <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
                                 <Label Text="{Binding Description}" FontSize="16" FontAttributes="Italic" />
                                 <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}" FontSize="14" />
@@ -90,4 +98,3 @@
         </CollectionView>
     </Grid>
 </ContentPage>
-

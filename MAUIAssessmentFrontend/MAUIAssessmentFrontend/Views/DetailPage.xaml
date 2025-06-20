@@ -2,11 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIAssessmentFrontend.Views.DetailPage"
-             Title="DetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewmodels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
+             x:DataType="viewmodels:DetailPageViewModel"
+             Title="Item Details">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="20">
+
+            <!-- Image -->
+            <Frame HasShadow="True" CornerRadius="12" Padding="0">
+                <Image Source="{Binding Item.ItemImageUrl}"
+               Aspect="AspectFill"
+               HeightRequest="200"/>
+            </Frame>
+
+            <!-- Name & Description -->
+            <Label Text="{Binding Item.Name}"
+             FontSize="24"
+             FontAttributes="Bold" />
+            <Label Text="{Binding Item.Description}"
+             FontSize="16"
+             LineBreakMode="WordWrap"/>
+
+            <!-- Coordinates -->
+            <HorizontalStackLayout Spacing="20">
+                <Label Text="{Binding Item.Latitude, StringFormat='Lat: {0:F6}'}" FontSize="14" TextColor="Gray"/>
+                <Label Text="{Binding Item.Longitude, StringFormat='Long: {0:F6}'}" FontSize="14" TextColor="Gray"/>
+            </HorizontalStackLayout>
+
+            <!-- Buttons -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Edit"
+                BackgroundColor="#28A745"
+                TextColor="White"
+                CornerRadius="8"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding EditCommand}" />
+
+                <Button Text="Delete"
+                BackgroundColor="#DC3545"
+                TextColor="White"
+                CornerRadius="8"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding DeleteCommand}" />
+            </HorizontalStackLayout>
+
+            <!-- Map Embed via WebView -->
+            <Frame HasShadow="True" CornerRadius="12" HeightRequest="250">
+                <WebView>
+                    <WebView.Source>
+                        <HtmlWebViewSource>
+                            <HtmlWebViewSource.Html>
+                                <![CDATA[
+                  <iframe
+                    width="100%" height="100%" frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/view?key=YOUR_GOOGLE_MAPS_API_KEY
+                         &center={Binding Item.Latitude},{Binding Item.Longitude}
+                         &zoom=14" allowfullscreen>
+                  </iframe>
+                ]]>
+                            </HtmlWebViewSource.Html>
+                        </HtmlWebViewSource>
+                    </WebView.Source>
+                </WebView>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

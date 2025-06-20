@@ -47,6 +47,9 @@ namespace MAUIAssessmentFrontend
             builder.Services.AddTransient<EditProfilePage>();
             builder.Services.AddTransient<EditProfileViewModel>();
             //builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddTransient<DetailPage>();
+            builder.Services.AddTransient<DetailPageViewModel>();
+            // builder.Services.AddSingleton<IUserService, UserService>();
             //builder.Services.AddSingleton<IItemService, ItemService>();
 
 
