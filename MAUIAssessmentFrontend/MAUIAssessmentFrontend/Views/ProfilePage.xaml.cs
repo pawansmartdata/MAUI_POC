@@ -9,6 +9,7 @@ public partial class ProfilePage : ContentPage
     public ProfilePage(ProfileViewModel viewModel)
     {
         InitializeComponent();
+        Shell.SetNavBarIsVisible(this, false);
         BindingContext = viewModel;
     }
 
@@ -17,5 +18,6 @@ public partial class ProfilePage : ContentPage
         base.OnAppearing();
         if (ViewModel != null)
             await ViewModel.LoadProfileAsync();
+            
     }
 }
