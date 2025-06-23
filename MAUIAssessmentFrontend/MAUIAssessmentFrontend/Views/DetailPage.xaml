@@ -48,7 +48,7 @@
             </HorizontalStackLayout>
 
             <!-- Map Embed via WebView -->
-            <Frame HasShadow="True" CornerRadius="12" HeightRequest="250">
+            <!--<Frame HasShadow="True" CornerRadius="12" HeightRequest="250">
                 <WebView>
                     <WebView.Source>
                         <HtmlWebViewSource>
@@ -56,7 +56,7 @@
                                 <![CDATA[
                   <iframe
                     width="100%" height="100%" frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/view?key=YOUR_GOOGLE_MAPS_API_KEY
+                    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDEPM_s-KilgJk8WDkGNdMor2ao_19Swuw
                          &center={Binding Item.Latitude},{Binding Item.Longitude}
                          &zoom=14" allowfullscreen>
                   </iframe>
@@ -65,8 +65,16 @@
                         </HtmlWebViewSource>
                     </WebView.Source>
                 </WebView>
-            </Frame>
+            </Frame>-->
 
+
+            <Frame HasShadow="True" CornerRadius="12" HeightRequest="350">
+                <WebView>
+                    <WebView.Source>
+                        <HtmlWebViewSource Html="{Binding MapHtml}" />
+                    </WebView.Source>
+                </WebView>
+            </Frame>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

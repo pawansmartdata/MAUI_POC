@@ -17,6 +17,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             _itemService = itemService;
             SaveCommand = new Command(async () => await SaveAsync());
             GoBackCommand = new Command(async () => await GoBack());
+            ChangeImageCommand = new Command(async () => await PickImageAsync());
         }
 
         private int _id;
@@ -34,8 +35,19 @@ namespace MAUIAssessmentFrontend.ViewModels
         private double _longitude;
         public double Longitude { get => _longitude; set { _longitude = value; OnPropertyChanged(); } }
 
+        private string _imageUrl;
+        public string ImageUrl { get => _imageUrl; set { _imageUrl = value; OnPropertyChanged(); } }
+
+        private string _selectedImagePath; // for file upload
+        public string SelectedImagePath
+        {
+            get => _selectedImagePath;
+            set { _selectedImagePath = value; OnPropertyChanged(); }
+        }
+
         public ICommand SaveCommand { get; }
         public ICommand GoBackCommand { get; }
+        public ICommand ChangeImageCommand { get; }
 
         private async Task LoadItemAsync()
         {
@@ -47,6 +59,22 @@ namespace MAUIAssessmentFrontend.ViewModels
             Description = item.Description;
             Latitude = item.Latitude;
             Longitude = item.Longitude;
+            ImageUrl = item.ItemImageUrl;
+        }
+
+        private async Task PickImageAsync()
+        {
+            var result = await FilePicker.PickAsync(new PickOptions
+            {
+                PickerTitle = "Select an image",
+                FileTypes = FilePickerFileType.Images
+            });
+
+            if (result != null)
+            {
+                SelectedImagePath = result.FullPath;
+                ImageUrl = SelectedImagePath; // update UI preview
+            }
         }
 
         private async Task SaveAsync()
@@ -56,7 +84,8 @@ namespace MAUIAssessmentFrontend.ViewModels
                 Name = Name,
                 Description = Description,
                 Latitude = Latitude,
-                Longitude = Longitude
+                Longitude = Longitude,
+                ItemImage = SelectedImagePath
             };
 
             var ok = await _itemService.UpdateItemAsync(Id, dto);

@@ -10,6 +10,6 @@ namespace MAUIAssessmentFrontend.Services.Interfaces
     public interface IUserService
     {
         Task<ProfileResponseDto?> GetUserByIdAsync(int id);
-        Task<bool> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, FileResult imageFile);
+        Task<bool> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, FileResult ProfilePicture);
     }
 }
