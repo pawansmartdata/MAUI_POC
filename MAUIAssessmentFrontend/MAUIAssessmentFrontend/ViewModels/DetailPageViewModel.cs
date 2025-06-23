@@ -1,4 +1,6 @@
-﻿using MAUIAssessmentFrontend.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using MAUIAssessmentFrontend.Views;
 using System;
@@ -94,12 +96,12 @@ namespace MAUIAssessmentFrontend.ViewModels
 
             if (success)
             {
-                await Application.Current.MainPage.DisplayAlert("Deleted", "Item was deleted successfully", "OK");
+                await Toast.Make("Deleted Successful!", ToastDuration.Short).Show();
                 await GoBack();
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Failed to delete item", "OK");
+                await Toast.Make("Deleted Unsuccessful!", ToastDuration.Short).Show();
             }
         }
 

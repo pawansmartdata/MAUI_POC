@@ -14,11 +14,13 @@
                    TextColor="{DynamicResource TextColor}" />
 
             <Entry Placeholder="First Name"
+                   MaxLength="20"
                    Text="{Binding FirstName}"
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
             <Entry Placeholder="Last Name"
                    Text="{Binding LastName}"
+                   MaxLength="20"
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
@@ -30,15 +32,17 @@
             
             <Entry Placeholder="Phone Number"
                    Text="{Binding PhoneNumber}"
+                   MaxLength="10"
                    Keyboard="Telephone"  
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
             <Entry Placeholder="Password"
-                IsPassword="True"
-                Text="{Binding Password}"
-                TextColor="{DynamicResource TextColor}"
-                BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+                   IsPassword="True"
+                   
+                   Text="{Binding Password}"
+                   TextColor="{DynamicResource TextColor}"
+                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
             <Entry Placeholder="Confirm Password"
                    IsPassword="True"

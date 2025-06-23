@@ -12,10 +12,17 @@
                 BackgroundColor="LightGray"
                 TextColor="Black"
                 HorizontalOptions="Start" />
-            <Entry Text="{Binding Name}" Placeholder="Name" />
-            <Editor Text="{Binding Description}" Placeholder="Description" HeightRequest="100"/>
+            <Entry Text="{Binding Name}" 
+                   Placeholder="Name"
+                   MaxLength="20"/>
+            <Editor Text="{Binding Description}" 
+                    Placeholder="Description" 
+                    HeightRequest="100"/>
             <Entry Text="{Binding Latitude}" Placeholder="Latitude" Keyboard="Numeric"/>
             <Entry Text="{Binding Longitude}" Placeholder="Longitude" Keyboard="Numeric"/>
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding IsErrorVisible}" />
             <Button Text="Save" Command="{Binding SaveCommand}" />
         </VerticalStackLayout>
     </ScrollView>
