@@ -36,7 +36,7 @@ namespace Infrastructure.Repository
         {
             return await _context.Items.Where(i => !i.IsDeleted).ToListAsync();
         }
-
+            
         public async Task<Item?> GetByIdAsync(int id)
         {
             return await _context.Items.FirstOrDefaultAsync(i => i.Id == id && !i.IsDeleted);
