@@ -37,7 +37,7 @@ namespace Infrastructure.Services
                     return new ResponseDto { Status = 400, Message = "Extension not valid", Data = "" };
                 }
 
-                if (file.Length > 5 * 1024 * 1024)
+                if (file.Length > 10 * 1024 * 1024)
                 {
                     return new ResponseDto { Status = 400, Message = "Maximum size is 5MB", Data = "" };
                 }

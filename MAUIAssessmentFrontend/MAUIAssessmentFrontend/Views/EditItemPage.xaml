@@ -3,27 +3,98 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MAUIAssessmentFrontend.Views.EditItemPage"
-    Title="Edit Item">
+    Title="Edit Item"
+    BackgroundColor="#F5F5F5">
 
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <Button Text="Back"
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Back Button -->
+            <Button 
+                Text="← Back"
                 Command="{Binding GoBackCommand}"
-                BackgroundColor="LightGray"
+                BackgroundColor="#E0E0E0"
                 TextColor="Black"
+                FontAttributes="Bold"
+                CornerRadius="8"
                 HorizontalOptions="Start" />
-            <Entry Text="{Binding Name}" 
-                   Placeholder="Name"
-                   MaxLength="20"/>
-            <Editor Text="{Binding Description}" 
-                    Placeholder="Description" 
-                    HeightRequest="100"/>
-            <Entry Text="{Binding Latitude}" Placeholder="Latitude" Keyboard="Numeric"/>
-            <Entry Text="{Binding Longitude}" Placeholder="Longitude" Keyboard="Numeric"/>
+
+            <!-- Profile Image with black background -->
+            <Frame HasShadow="True"
+                   CornerRadius="12"
+                   Padding="0"
+                   HorizontalOptions="Center">
+                <Grid BackgroundColor="Black"
+                      WidthRequest="300"
+                      HeightRequest="220"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center">
+                    <Image 
+                        Source="{Binding ImageUrl}" 
+                        Aspect="AspectFill"
+                        WidthRequest="300"
+                        HeightRequest="220"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeImageCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            </Frame>
+
+            <Label Text="Tap image to update"
+                   FontSize="12"
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
+
+            <!-- Entry: Name -->
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="White" HasShadow="False">
+                <Entry 
+                    Text="{Binding Name}" 
+                    Placeholder="Item Name"
+                    BackgroundColor="Transparent" />
+            </Frame>
+
+            <!-- Editor: Description -->
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="White" HasShadow="False">
+                <Editor 
+                    Text="{Binding Description}" 
+                    Placeholder="Description"
+                    HeightRequest="100"
+                    BackgroundColor="Transparent"/>
+            </Frame>
+
+            <!-- Entry: Latitude -->
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="White" HasShadow="False">
+                <Entry 
+                    Text="{Binding Latitude}" 
+                    Placeholder="Latitude"
+                    Keyboard="Numeric"
+                    BackgroundColor="Transparent" />
+            </Frame>
+
+            <!-- Entry: Longitude -->
+            <Frame CornerRadius="10" Padding="10" BackgroundColor="White" HasShadow="False">
+                <Entry 
+                    Text="{Binding Longitude}" 
+                    Placeholder="Longitude"
+                    Keyboard="Numeric"
+                    BackgroundColor="Transparent" />
+            </Frame>
             <Label Text="{Binding ErrorMessage}"
                    TextColor="Red"
                    IsVisible="{Binding IsErrorVisible}" />
-            <Button Text="Save" Command="{Binding SaveCommand}" />
+
+            <!-- Save Button -->
+            <Button 
+                Text="Save Changes"
+                Command="{Binding SaveCommand}"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                HeightRequest="50" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

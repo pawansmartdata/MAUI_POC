@@ -24,7 +24,7 @@ namespace MAUIAssessmentFrontend
 
             var uri = new Uri("https://b004-49-248-148-242.ngrok-free.app/");
 
-
+         
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
                 client.BaseAddress = uri;

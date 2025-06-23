@@ -113,8 +113,8 @@ namespace MAUIAssessmentFrontend.ViewModels
             Console.WriteLine("GetByIdResp"+Item);
             MapHtml = $@"
                 <iframe width='100%' height='100%' frameborder='0' style='border:0'
-                src='https://www.google.com/maps/embed/v1/view?key=YOUR_KEY
-                &center={Item.Latitude},{Item.Longitude}&zoom=14' allowfullscreen>
+                src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDEPM_s-KilgJk8WDkGNdMor2ao_19Swuw
+                &q={Item.Latitude},{Item.Longitude}&zoom=14' allowfullscreen>
                 </iframe>";
 
             OnPropertyChanged(nameof(Item));
