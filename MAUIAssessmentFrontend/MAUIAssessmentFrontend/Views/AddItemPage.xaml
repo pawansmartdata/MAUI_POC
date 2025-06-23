@@ -29,6 +29,10 @@
                    Keyboard="Numeric"
                    Text="{Binding Longitude}" />
 
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding IsErrorVisible}" />
+
             <Image Source="{Binding ImagePath}"
                    HeightRequest="200"
                    WidthRequest="200"

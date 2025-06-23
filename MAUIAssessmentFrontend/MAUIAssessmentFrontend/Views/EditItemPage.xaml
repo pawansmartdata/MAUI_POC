@@ -82,6 +82,9 @@
                     Keyboard="Numeric"
                     BackgroundColor="Transparent" />
             </Frame>
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding IsErrorVisible}" />
 
             <!-- Save Button -->
             <Button 

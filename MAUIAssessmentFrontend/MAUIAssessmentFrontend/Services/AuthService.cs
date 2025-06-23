@@ -43,6 +43,8 @@ namespace MAUIAssessmentFrontend.Services
             content.Add(new StringContent(registerDto.LastName), "LastName");
             content.Add(new StringContent(registerDto.Email), "Email");
             content.Add(new StringContent(registerDto.Password), "Password");
+            //content.Add(new StringContent(registerDto.PhoneNumber, 0));
+            content.Add(new StringContent(registerDto.PhoneNumber), "PhoneNumber");
 
             if (registerDto.ProfilePictureStream != null && registerDto.ProfilePictureFileName != null)
             {

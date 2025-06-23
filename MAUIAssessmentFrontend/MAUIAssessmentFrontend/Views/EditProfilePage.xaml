@@ -29,10 +29,20 @@
                 </Image>
             </Frame>
 
-            <Entry Placeholder="First Name" Text="{Binding FirstName}" />
-            <Entry Placeholder="Last Name" Text="{Binding LastName}" />
+            <Entry Placeholder="First Name" 
+                   Text="{Binding FirstName}"
+                   MaxLength="20"/>
+            <Entry Placeholder="Last Name" 
+                   Text="{Binding LastName}"
+                   MaxLength="20"/>
             <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
-            <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" Keyboard="Telephone" />
+            <Entry Placeholder="Phone Number" 
+                   Text="{Binding PhoneNumber}" 
+                   Keyboard="Telephone" 
+                   MaxLength="10"/>
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding IsErrorVisible}" />
 
             <Button Text="Save"
                     Command="{Binding SaveCommand}"

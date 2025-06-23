@@ -3,6 +3,7 @@ using MAUIAssessmentFrontend.Services;
 using Microsoft.Extensions.Logging;
 using MAUIAssessmentFrontend.Views;
 using MAUIAssessmentFrontend.ViewModels;
+using CommunityToolkit.Maui;
 
 
 namespace MAUIAssessmentFrontend
@@ -14,14 +15,14 @@ namespace MAUIAssessmentFrontend
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-           // var uri = new Uri("https://7245-49-248-148-242.ngrok-free.app/");
-            var uri = new Uri("https://17dc-49-248-148-242.ngrok-free.app/");
+            var uri = new Uri("https://b004-49-248-148-242.ngrok-free.app/");
 
          
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>

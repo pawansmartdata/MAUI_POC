@@ -20,13 +20,19 @@ namespace MAUIAssessmentFrontend.ViewModels
         }
 
         private string _firstName, _lastName, _email, _phoneNumber, _profileImage;
-        private FileResult _selectedImage;
+        private string _selectedImage;
 
         public string FirstName { get => _firstName; set { _firstName = value; OnPropertyChanged(); } }
         public string LastName { get => _lastName; set { _lastName = value; OnPropertyChanged(); } }
         public string Email { get => _email; set { _email = value; OnPropertyChanged(); } }
         public string PhoneNumber { get => _phoneNumber; set { _phoneNumber = value; OnPropertyChanged(); } }
         public string ProfileImage { get => _profileImage; set { _profileImage = value; OnPropertyChanged(); } }
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set { _errorMessage = value; OnPropertyChanged(); }
+        }
 
         public ICommand PickImageCommand { get; }
         public ICommand SaveCommand { get; }
@@ -50,16 +56,19 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         //}
 
-        private async Task PickImageAsync()
+        public async Task PickImageAsync()
         {
-            _selectedImage = await FilePicker.PickAsync(new PickOptions
+            var result = await FilePicker.PickAsync(new PickOptions
             {
                 PickerTitle = "Choose a profile image",
                 FileTypes = FilePickerFileType.Images
             });
 
-            if (_selectedImage != null)
-                ProfileImage = _selectedImage.FullPath;
+            if (result != null)
+            {
+                _selectedImage = result.FullPath; // Just store path as string
+                ProfileImage = _selectedImage;
+            }
         }
         public async Task GoBack()
         {
@@ -98,27 +107,28 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task SaveProfileAsync()
         {
+            ErrorMessage = string.Empty;
             // Validations
             if (string.IsNullOrWhiteSpace(FirstName) || FirstName.Length > 20)
             {
-                await App.Current.MainPage.DisplayAlert("Validation Error", "First name is required and must be less than or equal to 20 characters.", "OK");
+                ErrorMessage = "First name is required and must be less than or equal to 20 characters.";
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(LastName) || LastName.Length > 20)
             {
-                await App.Current.MainPage.DisplayAlert("Validation Error", "Last name is required and must be less than or equal to 20 characters.", "OK");
+                ErrorMessage = "Last name is required and must be less than or equal to 20 characters.";
                 return;
             }
             if (string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                await App.Current.MainPage.DisplayAlert("Validation Error", "Please enter a valid email address.", "OK");
+                ErrorMessage = "Please enter a valid email address.";
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(PhoneNumber) || !PhoneNumber.All(char.IsDigit) || PhoneNumber.Length != 10)
             {
-                await App.Current.MainPage.DisplayAlert("Validation Error", "Phone number must be exactly 10 digits and contain only numbers.", "OK");
+                ErrorMessage = "Phone number must be exactly 10 digits and contain only numbers.";
                 return;
             }
 
