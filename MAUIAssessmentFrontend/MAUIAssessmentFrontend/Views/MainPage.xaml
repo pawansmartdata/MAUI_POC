@@ -4,32 +4,70 @@
              xmlns:viewmodels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
              xmlns:model="clr-namespace:MAUIAssessmentFrontend.Models"
              x:Class="MAUIAssessmentFrontend.Views.MainPage"
-             Title="Home"
-             x:DataType="viewmodels:MainPageViewModel">
+             
+             x:DataType="viewmodels:MainPageViewModel"
+             
+             >
 
-    <Grid RowDefinitions="Auto, *" Padding="10">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="*,Auto"
+              Padding="10,0">
+            <Label Text="Home"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="#2E3A59"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Start" />
+
+            <Frame Padding="2"
+                   HeightRequest="40"
+                   WidthRequest="40"
+                   CornerRadius="20"
+                   BackgroundColor="White"
+                   BorderColor="#E0E0E0"
+                   HasShadow="True"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center">
+                <Image Source="{Binding ProfileImage}"
+                       Aspect="AspectFill"
+                       HeightRequest="36"
+                       WidthRequest="36"
+                       Clip="EllipseGeometry Center=18,18 RadiusX=18 RadiusY=18">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <Grid RowDefinitions="Auto, *" Padding="20">
 
         <!-- Header Section -->
-        <VerticalStackLayout Spacing="10" Grid.Row="0">
+        <VerticalStackLayout Spacing="16" Grid.Row="0">
 
-            <!-- Greeting and Profile Image -->
-            <Grid ColumnDefinitions="*,Auto">
-                <Label Text="{Binding UserName, StringFormat='Welcome, {0}'}"
-                       FontSize="20"
-                       VerticalOptions="Center"
-                       TextColor="Black" />
+            <!-- Welcome and Profile -->
+            <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                <Label Text="{Binding UserName, StringFormat='Hello, {0} 👋'}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="#2E3A59"
+                       VerticalOptions="Center" />
 
                 <Frame Padding="2"
-                       HeightRequest="40"
-                       WidthRequest="40"
-                       CornerRadius="20"
-                       HasShadow="False"
-                       VerticalOptions="Center"
-                       HorizontalOptions="End">
+                       HeightRequest="48"
+                       WidthRequest="48"
+                       CornerRadius="24"
+                       BackgroundColor="#FFFFFF"
+                       BorderColor="#E0E0E0"
+                       HasShadow="True"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center">
                     <Image Source="{Binding ProfileImage}"
                            Aspect="AspectFill"
-                           HeightRequest="40"
-                           WidthRequest="40">
+                           HeightRequest="44"
+                           WidthRequest="44"
+                           Clip="EllipseGeometry Center=22,22 RadiusX=22 RadiusY=22">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoToProfileCommand}" />
                         </Image.GestureRecognizers>
@@ -38,58 +76,104 @@
             </Grid>
 
             <!-- Add Item Button -->
-            <Button Text="Add Item"
+            <Button Text="➕ Add New Restaurant"
                     Command="{Binding GoToAddItemCommand}"
-                    HorizontalOptions="End"
-                    BackgroundColor="DodgerBlue"
+                    HorizontalOptions="FillAndExpand"
+                    BackgroundColor="#FF7043"
                     TextColor="White"
-                    CornerRadius="8"
-                    Padding="12,6"
-                    Margin="0,0,0,5"
-                    WidthRequest="362" />
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    CornerRadius="14"
+                    Padding="14,10"
+                    Margin="0"
+                    Shadow="{Shadow Brush=Black, Offset='0,4', Opacity=0.2}" />
+
+            <!-- Search Bar -->
+            <SearchBar Placeholder="Search items..."
+                       Text="{Binding SearchText}"
+                       BackgroundColor="#F5F5F5"
+                       PlaceholderColor="#888"
+                       TextColor="#000"
+                       FontSize="16"
+                       HeightRequest="46"
+                       Margin="0,10,0,0"
+                       SearchCommand="{Binding SearchCommand}" />
         </VerticalStackLayout>
 
-        <!-- Items List -->
+        <!-- Search Bar -->
+        <!--<Frame BackgroundColor="#FFFFFF"
+       CornerRadius="14"
+       Padding="0"
+       HasShadow="False"
+       BorderColor="#DDD"
+       HeightRequest="50">
+            <SearchBar Placeholder="Search items..."
+               Text="{Binding SearchText}"
+               BackgroundColor="Transparent"
+               PlaceholderColor="#888"
+               TextColor="#000"
+               FontSize="16"
+               Margin="10,0"
+               HeightRequest="50"
+               SearchCommand="{Binding SearchCommand}" />
+        </Frame>-->
+
+        <!-- Item List -->
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding Items}"
                         SelectionMode="None"
-                        VerticalOptions="FillAndExpand">
+                        VerticalOptions="FillAndExpand"
+                        Margin="0,20,0,0">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical"
                                  Span="1"
-                                 HorizontalItemSpacing="10"
-                                 VerticalItemSpacing="10" />
+                                 HorizontalItemSpacing="14"
+                                 VerticalItemSpacing="14" />
             </CollectionView.ItemsLayout>
 
             <CollectionView.ItemTemplate>
-                
                 <DataTemplate x:DataType="model:ItemResponseDto">
-                    <Frame HeightRequest="180"
-                           CornerRadius="12"
-                           Padding="0"
+                    <Frame 
                            HasShadow="True"
-                           BackgroundColor="White">
-                        <!-- Tap Gesture -->
+                           BackgroundColor="White"
+                           Padding="0"
+                           HeightRequest="200">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer 
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:MainPageViewModel}}, Path=GoToDetailCommand}"
                                 CommandParameter="{Binding Id}" />
                         </Frame.GestureRecognizers>
 
-                        <Grid ColumnDefinitions="200,*">
+                        <Grid ColumnDefinitions="160,*"
+                              Padding="0">
+                            <!-- Image -->
                             <Image Source="{Binding ItemImageUrl}"
                                    Aspect="AspectFill"
-                                   WidthRequest="125"
-                                   HeightRequest="125" />
+                                   WidthRequest="160"
+                                   HeightRequest="200"
+                                   Clip="RectangleGeometry Rect='0,0,160,200'" />
 
+                            <!-- Details -->
                             <VerticalStackLayout Grid.Column="1"
-                                                 Padding="10"
+                                                 Padding="14"
                                                  VerticalOptions="Center">
-                                
-                                <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="{Binding Description}" FontSize="16" FontAttributes="Italic" />
-                                <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}" FontSize="14" />
-                                <Label Text="{Binding Longitude, StringFormat='Long: {0:F4}'}" FontSize="14" />
+                                <Label Text="{Binding Name}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="#333" />
+
+                                <Label Text="{Binding Description}"
+                                       FontSize="14"
+                                       TextColor="#555"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="2" />
+
+                                <Label Text="{Binding Latitude, StringFormat='Lat: {0:F4}'}"
+                                       FontSize="12"
+                                       TextColor="#888" />
+                                <Label Text="{Binding Longitude, StringFormat='Long: {0:F4}'}"
+                                       FontSize="12"
+                                       TextColor="#888" />
                             </VerticalStackLayout>
                         </Grid>
                     </Frame>
@@ -98,3 +182,4 @@
         </CollectionView>
     </Grid>
 </ContentPage>
+

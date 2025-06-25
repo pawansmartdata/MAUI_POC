@@ -37,18 +37,82 @@
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
-            <Entry Placeholder="Password"
-                   IsPassword="True"
-                   
-                   Text="{Binding Password}"
-                   TextColor="{DynamicResource TextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+            <!-- Password Entry -->
+            <!--<Grid>
+                <Entry Placeholder="Password"
+           IsPassword="{Binding IsPasswordHidden}"
+           Text="{Binding Password}"
+           TextColor="{DynamicResource TextColor}"
+           BackgroundColor="{DynamicResource EntryBackgroundColor}"
+           Margin="0,0,40,0" />
+                <ImageButton Source="{Binding PasswordEyeIcon}"
+                 Command="{Binding TogglePasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 Margin="0,0,10,0" />
+            </Grid>-->
 
-            <Entry Placeholder="Confirm Password"
-                   IsPassword="True"
-                   Text="{Binding ConfirmPassword}"
-                   TextColor="{DynamicResource TextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+            <!-- Confirm Password Entry -->
+            <!--<Grid>
+                <Entry Placeholder="Confirm Password"
+           IsPassword="{Binding IsConfirmPasswordHidden}"
+           Text="{Binding ConfirmPassword}"
+           TextColor="{DynamicResource TextColor}"
+           BackgroundColor="{DynamicResource EntryBackgroundColor}"
+           Margin="0,0,40,0" />
+                <ImageButton Source="{Binding ConfirmPasswordEyeIcon}"
+                 Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 Margin="0,0,10,0" />
+            </Grid>-->
+
+            <!-- Password Entry -->
+
+            <Grid>
+                <Entry x:Name="PasswordEntry"
+           Placeholder="Password"
+           Text="{Binding Password}"
+           IsPassword="{Binding IsPassword, Mode=TwoWay}"
+           TextColor="{DynamicResource TextColor}"
+           BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+
+                <ImageButton Source="{Binding PasswordEyeIcon}"
+                 Command="{Binding TogglePasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 Margin="0,0,10,0"
+                 Padding="0" />
+            </Grid>
+
+            <!-- Confirm Password Entry -->
+            <Grid>
+                <Entry x:Name="ConfirmPasswordEntry"
+           Placeholder="Confirm Password"
+           Text="{Binding ConfirmPassword}"
+           IsPassword="{Binding IsConfirmPassword, Mode=TwoWay}"
+           TextColor="{DynamicResource TextColor}"
+           BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+
+                <ImageButton Source="{Binding ConfirmPasswordEyeIcon}"
+                 Command="{Binding ToggleConfirmPasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 Margin="0,0,10,0"
+                 Padding="0" />
+            </Grid>
 
             <Label Text="{Binding ErrorMessage}"
                    TextColor="Red"

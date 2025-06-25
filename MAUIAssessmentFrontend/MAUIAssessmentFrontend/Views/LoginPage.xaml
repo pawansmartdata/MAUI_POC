@@ -19,11 +19,25 @@
                    TextColor="{DynamicResource TextColor}"
                    BackgroundColor="{DynamicResource EntryBackgroundColor}" />
 
-            <Entry Placeholder="Password"
-                   Text="{Binding Password}"
-                   IsPassword="True"
-                   TextColor="{DynamicResource TextColor}"
-                   BackgroundColor="{DynamicResource EntryBackgroundColor}" />
+            <Grid>
+                <Entry x:Name="PasswordEntry"
+           Placeholder="Password"
+           Text="{Binding Password}"
+           IsPassword="{Binding IsPassword, Mode=TwoWay}"
+           TextColor="{DynamicResource TextColor}"
+           BackgroundColor="{DynamicResource EntryBackgroundColor}"
+           />
+
+                <ImageButton Source="{Binding EyeIcon}"
+                 Command="{Binding TogglePasswordVisibilityCommand}"
+                 BackgroundColor="Transparent"
+                 WidthRequest="24"
+                 HeightRequest="24"
+                 HorizontalOptions="End"
+                 VerticalOptions="Center"
+                 Margin="0,0,10,0"
+                 Padding="0" />
+            </Grid>
 
             <Label Text="{Binding ErrorMessage}"
                    TextColor="Red"
