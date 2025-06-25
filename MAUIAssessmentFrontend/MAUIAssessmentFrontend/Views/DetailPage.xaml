@@ -4,77 +4,89 @@
              x:Class="MAUIAssessmentFrontend.Views.DetailPage"
              xmlns:viewmodels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
              x:DataType="viewmodels:DetailPageViewModel"
-             Title="Item Details">
+             Title="Item Details"
+             BackgroundColor="#FAF9F6">
+    <!-- Soft background for restaurant style -->
 
     <ScrollView>
-        <VerticalStackLayout Padding="15" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="25">
 
-            <!-- Image -->
-            <Frame HasShadow="True" CornerRadius="12" Padding="0">
+            <!-- Image Card -->
+            <Frame HasShadow="True"
+                   BackgroundColor="White"
+                   CornerRadius="20"
+                   Padding="0"
+                   BorderColor="#E0E0E0"
+                   IsClippedToBounds="True">
                 <Image Source="{Binding Item.ItemImageUrl}"
-               Aspect="AspectFill"
-               HeightRequest="200"/>
+                       Aspect="AspectFill"
+                       HeightRequest="220" />
             </Frame>
 
-            <!-- Name & Description -->
+            <!-- Name -->
             <Label Text="{Binding Item.Name}"
-             FontSize="24"
-             FontAttributes="Bold" />
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#2E3A59" />
+
+            <!-- Description -->
             <Label Text="{Binding Item.Description}"
-             FontSize="16"
-             LineBreakMode="WordWrap"/>
+                   FontSize="16"
+                   TextColor="#4A4A4A"
+                   LineBreakMode="WordWrap" />
 
             <!-- Coordinates -->
-            <HorizontalStackLayout Spacing="20">
-                <Label Text="{Binding Item.Latitude, StringFormat='Lat: {0:F6}'}" FontSize="14" TextColor="Gray"/>
-                <Label Text="{Binding Item.Longitude, StringFormat='Long: {0:F6}'}" FontSize="14" TextColor="Gray"/>
-            </HorizontalStackLayout>
+            <Frame BackgroundColor="#FFFFFF"
+                   CornerRadius="12"
+                   Padding="10"
+                   HasShadow="False"
+                   BorderColor="#DCDCDC">
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="{Binding Item.Latitude, StringFormat='Lat: {0:F6}'}"
+                           FontSize="14"
+                           TextColor="#888888" />
+                    <Label Text="{Binding Item.Longitude, StringFormat='Long: {0:F6}'}"
+                           FontSize="14"
+                           TextColor="#888888" />
+                </HorizontalStackLayout>
+            </Frame>
 
             <!-- Buttons -->
-            <HorizontalStackLayout Spacing="10">
+            <HorizontalStackLayout Spacing="12">
                 <Button Text="Edit"
-                BackgroundColor="#28A745"
-                TextColor="White"
-                CornerRadius="8"
-                HorizontalOptions="FillAndExpand"
-                Command="{Binding EditCommand}" />
-             
+                        BackgroundColor="#219653"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        Padding="12"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding EditCommand}" />
+
                 <Button Text="Delete"
-                BackgroundColor="#DC3545"
-                TextColor="White"
-                CornerRadius="8"
-                HorizontalOptions="FillAndExpand"
-                Command="{Binding DeleteCommand}" />
+                        BackgroundColor="#EB5757"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="12"
+                        Padding="12"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding DeleteCommand}" />
             </HorizontalStackLayout>
 
-            <!-- Map Embed via WebView -->
-            <!--<Frame HasShadow="True" CornerRadius="12" HeightRequest="250">
-                <WebView>
-                    <WebView.Source>
-                        <HtmlWebViewSource>
-                            <HtmlWebViewSource.Html>
-                                <![CDATA[
-                  <iframe
-                    width="100%" height="100%" frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDEPM_s-KilgJk8WDkGNdMor2ao_19Swuw
-                         &center={Binding Item.Latitude},{Binding Item.Longitude}
-                         &zoom=14" allowfullscreen>
-                  </iframe>
-                ]]>
-                            </HtmlWebViewSource.Html>
-                        </HtmlWebViewSource>
-                    </WebView.Source>
-                </WebView>
-            </Frame>-->
-
-
-            <Frame HasShadow="True" CornerRadius="12" HeightRequest="350">
-                <WebView>
+            <!-- Map Section (No extra padding) -->
+            <Frame HasShadow="True"
+                   CornerRadius="15"
+                   BorderColor="#E0E0E0"
+                   BackgroundColor="White"
+                   Padding="0"
+                   IsClippedToBounds="True"
+                   HeightRequest="300">
+                <WebView Margin="0">
                     <WebView.Source>
                         <HtmlWebViewSource Html="{Binding MapHtml}" />
                     </WebView.Source>
                 </WebView>
             </Frame>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

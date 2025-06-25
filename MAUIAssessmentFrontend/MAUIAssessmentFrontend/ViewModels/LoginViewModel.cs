@@ -19,6 +19,22 @@ namespace MAUIAssessmentFrontend.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _email;
+        private bool _isPassword = true;
+        public string EyeIcon => IsPassword ? "show.png" : "hide.png";
+        public ICommand TogglePasswordVisibilityCommand { get; }
+        public bool IsPassword
+        {
+            get => _isPassword;
+            set
+            {
+                if (_isPassword != value)
+                {
+                    _isPassword = value;
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(EyeIcon)); // Also notify icon change
+                }
+            }
+        }
         public string Email
         {
             get => _email;
@@ -47,6 +63,11 @@ namespace MAUIAssessmentFrontend.ViewModels
             _authService = authService;
             LoginCommand = new Command(async () => await LoginAsync());
             NavigateToSignupCommand = new Command(async () => await Shell.Current.GoToAsync("SignUpPage"));
+            TogglePasswordVisibilityCommand = new Command(() =>
+            {
+                IsPassword = !IsPassword;
+                OnPropertyChanged(nameof(EyeIcon));
+            });
         }
 
         private async Task LoginAsync()

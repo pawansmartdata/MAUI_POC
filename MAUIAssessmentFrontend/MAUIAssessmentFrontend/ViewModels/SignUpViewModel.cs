@@ -20,7 +20,40 @@ namespace MAUIAssessmentFrontend.ViewModels
             NavigateToLoginCommand = new Command(async () => await NavigateToLogin());
         }
 
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+
+        private bool _isPasswordHidden = true;
+
+        public string PasswordEyeIcon => IsPasswordHidden ? "show.png" : "hide.png";
+        public string ConfirmPasswordEyeIcon => IsConfirmPasswordHidden ? "show.png" : "hide.png";
+
+        public ICommand TogglePasswordVisibilityCommand => new Command(() => IsPasswordHidden = !IsPasswordHidden);
+        public ICommand ToggleConfirmPasswordVisibilityCommand => new Command(() => IsConfirmPasswordHidden = !IsConfirmPasswordHidden);
+        public bool IsPasswordHidden
+        {
+            get => _isPasswordHidden;
+            set
+            {
+                _isPasswordHidden = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PasswordEyeIcon));
+            }
+        }
+
+        private bool _isConfirmPasswordHidden = true;
+        public bool IsConfirmPasswordHidden
+        {
+            get => _isConfirmPasswordHidden;
+            set
+            {
+                _isConfirmPasswordHidden = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ConfirmPasswordEyeIcon));
+            }
+        }
         private string _firstName;
+
         public string FirstName
         {
             get => _firstName;
@@ -41,18 +74,18 @@ namespace MAUIAssessmentFrontend.ViewModels
         }
 
         private string _password;
-        public string Password
-        {
-            get => _password;
-            set { _password = value; OnPropertyChanged(); }
-        }
+        //public string Password
+        //{
+        //    get => _password;
+        //    set { _password = value; OnPropertyChanged(); }
+        //}
 
-        private string _confirmPassword;
-        public string ConfirmPassword
-        {
-            get => _confirmPassword;
-            set { _confirmPassword = value; OnPropertyChanged(); }
-        }
+        //private string _confirmPassword;
+        //public string ConfirmPassword
+        //{
+        //    get => _confirmPassword;
+        //    set { _confirmPassword = value; OnPropertyChanged(); }
+        //}
 
         private string _errorMessage;
         public string ErrorMessage
@@ -137,5 +170,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }
