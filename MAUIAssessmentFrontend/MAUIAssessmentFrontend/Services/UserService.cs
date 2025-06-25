@@ -36,7 +36,7 @@ namespace MAUIAssessmentFrontend.Services
 
             return null;
         }
-        public async Task<bool> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, FileResult ProfilePicture)
+        public async Task<bool> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, string ProfilePicture)
         {
             try
             {
@@ -48,10 +48,10 @@ namespace MAUIAssessmentFrontend.Services
 
                 if (ProfilePicture != null)
                 {
-                    var stream = await ProfilePicture.OpenReadAsync();
+                    var stream = File.OpenRead(ProfilePicture);
                     var fileContent = new StreamContent(stream);
                     fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                    form.Add(fileContent, "ProfilePicture", ProfilePicture.FileName);
+                    form.Add(fileContent, "ProfilePicture",Path.GetFileName(ProfilePicture));
                 }
 
                 var response = await _httpClient.PutAsync($"api/User/{userId}", form);

@@ -668,3 +668,6 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,aspnetcore,xamarinstudio,visualstudio,android,windows,macos
+/MAUIAssessmentBackend/MAUIAssessmentBackend/wwwroot/Images/38128fed-9ff1-4eed-bc7e-086e73971c35.jpg
+/MAUIAssessmentBackend/MAUIAssessmentBackend/wwwroot/Images/a82dfb9f-72f3-4019-a37a-20204a0ad78b.jpg
+/MAUIAssessmentBackend/MAUIAssessmentBackend/wwwroot/Images/ce87cda5-babe-469f-b6f9-5c9b270cb97b.jpg
