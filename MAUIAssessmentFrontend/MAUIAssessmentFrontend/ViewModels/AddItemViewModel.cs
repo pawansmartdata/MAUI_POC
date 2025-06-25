@@ -53,6 +53,12 @@ namespace MAUIAssessmentFrontend.ViewModels
             get => _imagePath;
             set { _imagePath = value; OnPropertyChanged(); }
         }
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set { _errorMessage = value; OnPropertyChanged(); }
+        }
 
         public ICommand PickImageCommand { get; }
         public ICommand SubmitCommand { get; }
@@ -90,9 +96,15 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task SubmitAsync()
         {
+            ErrorMessage = string.Empty;
             if (string.IsNullOrWhiteSpace(Name))
             {
-                await ShowValidationError("Name is required.");
+                ErrorMessage = "Name is required.";
+                return;
+            }
+            if (Name.Length>20)
+            {
+                ErrorMessage = "Name cannot be more than 20 characters long.";
                 return;
             }
 
@@ -102,7 +114,8 @@ namespace MAUIAssessmentFrontend.ViewModels
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(Latitude) || !double.TryParse(Latitude, out double lat))
+
+            if (!double.TryParse(Latitude, out double lat))
             {
                 await ShowValidationError("Latitude must be a valid number.");
                 return;
@@ -114,7 +127,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(Longitude) || !double.TryParse(Longitude, out double lng))
+            if (!double.TryParse(Longitude, out double lng))
             {
                 await ShowValidationError("Longitude must be a valid number.");
                 return;

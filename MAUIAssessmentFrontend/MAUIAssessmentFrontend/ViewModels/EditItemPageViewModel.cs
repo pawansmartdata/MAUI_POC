@@ -3,8 +3,10 @@ using MAUIAssessmentFrontend.Services.Interfaces;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+//using Windows.Networking;
 
 namespace MAUIAssessmentFrontend.ViewModels
 {
@@ -34,6 +36,12 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private double _longitude;
         public double Longitude { get => _longitude; set { _longitude = value; OnPropertyChanged(); } }
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set { _errorMessage = value; OnPropertyChanged(); }
+        }
 
         private string _imageUrl;
         public string ImageUrl { get => _imageUrl; set { _imageUrl = value; OnPropertyChanged(); } }
@@ -79,6 +87,24 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task SaveAsync()
         {
+            ErrorMessage = string.Empty;
+
+            // Validations
+            if (string.IsNullOrWhiteSpace(Name))
+            {
+                ErrorMessage = "Name is required.";
+                return;
+            }
+            
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                ErrorMessage = "Description is required";
+                return;
+            }
+
+            
+
+            
             var dto = new ItemDto
             {
                 Name = Name,

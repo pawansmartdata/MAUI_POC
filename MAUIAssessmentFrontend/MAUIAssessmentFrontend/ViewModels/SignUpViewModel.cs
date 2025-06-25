@@ -73,6 +73,13 @@ namespace MAUIAssessmentFrontend.ViewModels
             set { _email = value; OnPropertyChanged(); }
         }
 
+        private string _phoneNumber;
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set { _phoneNumber = value; OnPropertyChanged(); }
+        }
+
         private string _password;
         //public string Password
         //{
@@ -151,6 +158,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 FirstName = FirstName,
                 LastName = LastName,
                 Email = Email,
+                PhoneNumber = PhoneNumber,
                 Password = Password
             };
 

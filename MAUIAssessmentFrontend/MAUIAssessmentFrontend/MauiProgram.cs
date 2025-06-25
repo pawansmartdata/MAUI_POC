@@ -3,6 +3,7 @@ using MAUIAssessmentFrontend.Services;
 using Microsoft.Extensions.Logging;
 using MAUIAssessmentFrontend.Views;
 using MAUIAssessmentFrontend.ViewModels;
+using CommunityToolkit.Maui;
 
 
 namespace MAUIAssessmentFrontend
@@ -14,6 +15,7 @@ namespace MAUIAssessmentFrontend
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

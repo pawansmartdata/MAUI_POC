@@ -1,4 +1,6 @@
-﻿using MAUIAssessmentFrontend.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -95,6 +97,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
             if (result?.Token?.Status == 200)
             {
+                await Toast.Make("Login Successful!", ToastDuration.Short).Show();
                 var user = result.Token.UserData;
 
                 // store JWT or user info as needed
@@ -109,6 +112,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             else
             {
                 ErrorMessage = result?.Token?.Message ?? "Login failed.";
+                await Toast.Make("Invalid Email or Password", ToastDuration.Short).Show();
             }
         }
 

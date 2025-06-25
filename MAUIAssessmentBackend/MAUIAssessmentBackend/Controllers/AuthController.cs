@@ -29,6 +29,7 @@ namespace MAUIAssessmentBackend.Controllers
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
+                    PhoneNumber = request.PhoneNumber,
                     PasswordHash = request.Password, // ⚠️ Make sure to hash it in production
                 };
 
