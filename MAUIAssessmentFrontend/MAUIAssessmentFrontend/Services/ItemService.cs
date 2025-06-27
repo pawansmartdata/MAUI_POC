@@ -1,8 +1,10 @@
 ﻿using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -13,11 +15,14 @@ namespace MAUIAssessmentFrontend.Services
     public class ItemService : IItemService
     {
         private readonly HttpClient _httpClient;
+         
+       
 
         public ItemService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
+
 
         public async Task<List<ItemResponseDto>> GetAllItemsAsync()
         {
@@ -25,6 +30,7 @@ namespace MAUIAssessmentFrontend.Services
             {
                 var response = await _httpClient.GetAsync("api/Item");
                 var json = await response.Content.ReadAsStringAsync();
+
                 Console.WriteLine($"Response JSON: {json}");
 
                 if (response.IsSuccessStatusCode)
@@ -33,6 +39,10 @@ namespace MAUIAssessmentFrontend.Services
                     {
                         PropertyNameCaseInsensitive = true
                     });
+                }
+                else
+                {
+                    Console.WriteLine($"Request failed: {response.StatusCode}");
                 }
             }
             catch (Exception ex)

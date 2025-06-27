@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MAUIAssessmentFrontend.Views;
 using MAUIAssessmentFrontend.ViewModels;
 using CommunityToolkit.Maui;
+using MAUIAssessmentFrontend.Utility;
 
 
 namespace MAUIAssessmentFrontend
@@ -23,9 +24,14 @@ namespace MAUIAssessmentFrontend
                 });
 
            // var uri = new Uri("https://7245-49-248-148-242.ngrok-free.app/");
-           // var uri = new Uri("https://5c86-49-248-148-242.ngrok-free.app/");
+          // var uri = new Uri("https://3a00-49-248-148-242.ngrok-free.app/");
 
-         
+            builder.Services.AddHttpClient("AuthorizedClient", client =>
+            {
+                client.BaseAddress = uri;
+            }).AddHttpMessageHandler<AuthTokenHandler>();
+
+
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
                 client.BaseAddress = uri;
@@ -33,12 +39,12 @@ namespace MAUIAssessmentFrontend
             builder.Services.AddHttpClient<IItemService, ItemService>(client =>
             {
                 client.BaseAddress = uri;
-            });
+            }).AddHttpMessageHandler<AuthTokenHandler>(); ;
             builder.Services.AddHttpClient<IUserService, UserService>(client =>
             {
                 client.BaseAddress = uri;
-            });
-
+            }).AddHttpMessageHandler<AuthTokenHandler>(); ;
+            builder.Services.AddTransient<AuthTokenHandler>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<SignUpPage>();

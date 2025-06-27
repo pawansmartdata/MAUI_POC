@@ -53,7 +53,7 @@ namespace MAUIAssessmentFrontend.Services
                     fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
                     form.Add(fileContent, "ProfilePicture",Path.GetFileName(ProfilePicture));
                 }
-
+                 
                 var response = await _httpClient.PutAsync($"api/User/{userId}", form);
                 return response.IsSuccessStatusCode;
             }
