@@ -1,4 +1,5 @@
 ﻿using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Utility;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -32,6 +33,17 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             get => _errorMessage;
             set { _errorMessage = value; OnPropertyChanged(); }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(); // Or use INotifyPropertyChanged/Fody/MVVM Toolkit
+            }
         }
 
         public ICommand PickImageCommand { get; }
@@ -77,6 +89,10 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public async Task LoadProfileAsync()
         {
+            await LoaderHelper.RunWithLoader(async()=>
+            {
+
+            
             try
             {
                 int userId = Preferences.Get("userId", 0);
@@ -102,6 +118,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
+            }, isBusy => IsBusy = isBusy, "Proifile Updating...");
         }
 
 

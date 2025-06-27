@@ -4,6 +4,8 @@ using System.Windows.Input;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using Microsoft.Maui.Storage;
 using MAUIAssessmentFrontend.Models;
+using MAUIAssessmentFrontend.Utility;
+
 
 namespace MAUIAssessmentFrontend.ViewModels
 {
@@ -60,6 +62,18 @@ namespace MAUIAssessmentFrontend.ViewModels
             set { _errorMessage = value; OnPropertyChanged(); }
         }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(); // Or use INotifyPropertyChanged/Fody/MVVM Toolkit
+            }
+        }
+
+
         public ICommand PickImageCommand { get; }
         public ICommand SubmitCommand { get; }
         public ICommand GoBackCommand { get; }
@@ -96,6 +110,9 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task SubmitAsync()
         {
+            await LoaderHelper.RunWithLoader(async()=>
+            {
+            
             ErrorMessage = string.Empty;
             if (string.IsNullOrWhiteSpace(Name))
             {
@@ -164,9 +181,11 @@ namespace MAUIAssessmentFrontend.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Failed to add item.", "OK");
             }
+            }, isBusy => IsBusy = isBusy, "Adding Items...");
         }
 
         private Task ShowValidationError(string message)
+
         {
             return App.Current.MainPage.DisplayAlert("Validation Error", message, "OK");
         }
