@@ -23,9 +23,9 @@ namespace MAUIAssessmentFrontend
                 });
 
            // var uri = new Uri("https://7245-49-248-148-242.ngrok-free.app/");
-           // var uri = new Uri("https://5c86-49-248-148-242.ngrok-free.app/");
+            var uri = new Uri("https://f7d0-49-248-148-242.ngrok-free.app/");
 
-         
+
             builder.Services.AddHttpClient<IAuthService, AuthService>(client=>
             {
                 client.BaseAddress = uri;

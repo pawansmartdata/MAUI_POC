@@ -15,7 +15,8 @@
                     HorizontalOptions="Start" />
 
             <Entry Placeholder="Item Name"
-                   Text="{Binding Name}" />
+                   Text="{Binding Name}"
+                   MaxLength="20"/>
 
             <Editor Placeholder="Description"
                     HeightRequest="100"
@@ -51,3 +52,5 @@
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
+    
+

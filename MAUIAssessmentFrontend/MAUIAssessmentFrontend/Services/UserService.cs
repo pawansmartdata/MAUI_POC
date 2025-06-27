@@ -51,7 +51,7 @@ namespace MAUIAssessmentFrontend.Services
                     var stream = File.OpenRead(ProfilePicture);
                     var fileContent = new StreamContent(stream);
                     fileContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-                    form.Add(fileContent, "ProfilePicture",Path.GetFileName(ProfilePicture));
+                    form.Add(fileContent, "ProfilePicture", Path.GetFileName(ProfilePicture));
                 }
 
                 var response = await _httpClient.PutAsync($"api/User/{userId}", form);
@@ -66,3 +66,4 @@ namespace MAUIAssessmentFrontend.Services
 
     }
 }
+

@@ -108,12 +108,20 @@ namespace MAUIAssessmentFrontend.ViewModels
                 Preferences.Set("email", result.Token.UserData.Email);
 
                 await Shell.Current.GoToAsync("//MainPage");
+                ResetFields();
             }
             else
             {
-                ErrorMessage = result?.Token?.Message ?? "Login failed.";
+                ErrorMessage = result?.Token?.Message ?? "Invalid Email or Password";
                 await Toast.Make("Invalid Email or Password", ToastDuration.Short).Show();
             }
+        }
+
+        public void ResetFields()
+        {
+            Email = string.Empty;
+            Password = string.Empty;
+            ErrorMessage = string.Empty;
         }
 
 

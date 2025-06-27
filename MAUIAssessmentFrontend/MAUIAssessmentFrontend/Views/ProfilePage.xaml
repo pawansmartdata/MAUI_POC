@@ -8,6 +8,11 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="24" BackgroundColor="#FAFAFA">
+            <Button Text="Back"
+                    Command="{Binding GoBackCommand}"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    HorizontalOptions="Start" />
 
             <!-- Profile Picture -->
             <Frame Padding="0"

@@ -44,8 +44,8 @@ namespace MAUIAssessmentFrontend.ViewModels
             _itemService = itemService;
             EditCommand = new Command(OnEdit);
             DeleteCommand = new Command(async () => await OnDelete());
-            
-           
+
+
         }
 
         //public async Task InitializeAsync(int itemId)
@@ -110,7 +110,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             // Item = await _itemService.GetItemByIdAsync(4);
             Id = itemId;
             Item = await _itemService.GetItemByIdAsync(itemId);
-            Console.WriteLine("GetByIdResp"+Item);
+            Console.WriteLine("GetByIdResp" + Item);
             MapHtml = $@"
                 <iframe width='100%' height='100%' frameborder='0' style='border:0'
                 src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDEPM_s-KilgJk8WDkGNdMor2ao_19Swuw
@@ -128,8 +128,9 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task GoBack()
         {
-            await Shell.Current.GoToAsync("//MainPage"); 
+            await Shell.Current.GoToAsync("//MainPage");
         }
 
     }
 }
+

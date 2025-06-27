@@ -1,4 +1,6 @@
-﻿using MAUIAssessmentFrontend.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
@@ -117,7 +119,8 @@ namespace MAUIAssessmentFrontend.ViewModels
             var ok = await _itemService.UpdateItemAsync(Id, dto);
             if (ok)
             {
-                await App.Current.MainPage.DisplayAlert("Success", "Item updated!", "OK");
+                //await App.Current.MainPage.DisplayAlert("Success", "Item updated!", "OK");
+                await Toast.Make("Item Updated!", ToastDuration.Short).Show();
                 await GoBack();
             }
             else
