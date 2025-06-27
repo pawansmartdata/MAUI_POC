@@ -36,7 +36,10 @@ namespace MAUIAssessmentFrontend.ViewModels
         public ObservableCollection<ItemResponseDto> FilteredItems
         {
             get => _filteredItems;
-            set => _filteredItems= value;
+            set {
+                    _filteredItems = value;
+                    OnPropertyChanged();
+            }
         }
 
 
@@ -55,6 +58,8 @@ namespace MAUIAssessmentFrontend.ViewModels
             get => _profileImage;
             set { _profileImage = value; OnPropertyChanged(); }
         }
+
+
 
         private bool _isBusy;
         public bool IsBusy
@@ -82,7 +87,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             _itemService = itemService;
 
-            UserName = Preferences.Get("UserName", "User");
+            UserName = Preferences.Get("userName", "User");
             ProfileImage = Preferences.Get("userImage", "default_image_url");
 
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
@@ -125,6 +130,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             {
                 IsBusy = false;
             }
+            FilterItems();
         }
 
         //private void FilterItems()
@@ -138,16 +144,39 @@ namespace MAUIAssessmentFrontend.ViewModels
         //}
         private void FilterItems()
         {
+            //var filtVar = new ObservableCollection<ItemResponseDto>();
+            //if (string.IsNullOrWhiteSpace(SearchText))
+            //{
+            //    FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
+            //}
+            //else
+            //{
+            //    var filtered = Items.Where(item =>
+            //        item.Name?.ToLower().Contains(SearchText.ToLower()) == true);
+            //    filtVar = new ObservableCollection<ItemResponseDto>(filtered);
+            //}
+            //FilteredItems.Clear();
+            //foreach(var item in filtVar)
+            //{
+            //    FilteredItems.Add(item);
+            //}
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
             }
             else
             {
+                //var filtered = Items.Where(item =>
+                //    item.Name?.ToLower().Contains(SearchText.ToLower()) == true);
+                var lowerSearchText = SearchText.ToLowerInvariant();
+
                 var filtered = Items.Where(item =>
-                    item.Name?.ToLower().Contains(SearchText.ToLower()) == true);
+                    !string.IsNullOrEmpty(item.Name) &&
+                    item.Name.ToLowerInvariant().Contains(lowerSearchText));
+
                 FilteredItems = new ObservableCollection<ItemResponseDto>(filtered);
             }
+
         }
 
 

@@ -1,4 +1,6 @@
-﻿using MAUIAssessmentFrontend.Models;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using MAUIAssessmentFrontend.Utility;
 using System.ComponentModel;
@@ -22,6 +24,10 @@ namespace MAUIAssessmentFrontend.ViewModels
         }
 
         public string Password { get; set; }
+
+        public bool IsPassword => IsPasswordHidden;  // used by the Password Entry
+        public bool IsConfirmPassword => IsConfirmPasswordHidden; // used by Confirm Entry
+
         public string ConfirmPassword { get; set; }
 
         private bool _isPasswordHidden = true;
@@ -39,6 +45,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 _isPasswordHidden = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(PasswordEyeIcon));
+                OnPropertyChanged(nameof(IsPassword));
             }
         }
 
@@ -51,6 +58,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 _isConfirmPasswordHidden = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ConfirmPasswordEyeIcon));
+                OnPropertyChanged(nameof(IsConfirmPassword));
             }
         }
         private string _firstName;
@@ -106,7 +114,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task NavigateToLogin()
         {
-            //await Shell.Current.GoToAsync("LoginPage")
+            await Shell.Current.GoToAsync("..");
         }
 
         private async Task RegisterAsync()

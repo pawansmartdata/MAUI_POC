@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using MAUIAssessmentFrontend.Views;
 using Microsoft.Maui.Storage;
@@ -120,7 +122,8 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public async Task LogoutAsync()
         {
-            Preferences.Clear(); 
+            Preferences.Clear();
+            await Toast.Make("Logout Successful", ToastDuration.Short).Show();
             await Shell.Current.GoToAsync("//LoginPage");
         }
 

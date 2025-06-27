@@ -27,9 +27,12 @@ public partial class DetailPage : ContentPage, IQueryAttributable
     {
         if (query.TryGetValue("itemId", out var idValue) && idValue is string idStr && int.TryParse(idStr, out var itemId))
         {
-            Console.WriteLine($"[DEBUG] Navigated with itemId = {itemId}"); // ? Helpful
+            Console.WriteLine($"[DEBUG] Navigated with itemId = {itemId}"); 
             await _viewModel.InitializeAsync(itemId);
         }
     }
 
 }
+
+
+
