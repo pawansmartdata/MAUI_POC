@@ -1,4 +1,6 @@
-﻿using MAUIAssessmentFrontend.Services.Interfaces;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MAUIAssessmentFrontend.Services.Interfaces;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -150,7 +152,8 @@ namespace MAUIAssessmentFrontend.ViewModels
                 if (!string.IsNullOrEmpty(ProfileImage))
                     Preferences.Set("UserImage", ProfileImage);
 
-                await App.Current.MainPage.DisplayAlert("Success", "Profile updated!", "OK");
+                //await App.Current.MainPage.DisplayAlert("Success", "Profile updated!", "OK");
+                await Toast.Make("Profile Updated!!", ToastDuration.Short).Show();
                 await Shell.Current.GoToAsync("ProfilePage");
             }
             else

@@ -4,6 +4,8 @@ using System.Windows.Input;
 using MAUIAssessmentFrontend.Services.Interfaces;
 using Microsoft.Maui.Storage;
 using MAUIAssessmentFrontend.Models;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 namespace MAUIAssessmentFrontend.ViewModels
 {
@@ -102,7 +104,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 ErrorMessage = "Name is required.";
                 return;
             }
-            if (Name.Length>20)
+            if (Name.Length > 20)
             {
                 ErrorMessage = "Name cannot be more than 20 characters long.";
                 return;
@@ -157,7 +159,8 @@ namespace MAUIAssessmentFrontend.ViewModels
             var success = await _itemService.AddItemAsync(item);
             if (success)
             {
-                await App.Current.MainPage.DisplayAlert("Success", "Item added!", "OK");
+                //await App.Current.MainPage.DisplayAlert("Success", "Item added!", "OK");
+                await Toast.Make("Item Added!", ToastDuration.Short).Show();
                 await Shell.Current.GoToAsync("..");
             }
             else
@@ -168,7 +171,7 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private Task ShowValidationError(string message)
         {
-            return App.Current.MainPage.DisplayAlert("Validation Error", message, "OK");
+            return App.Current.MainPage.DisplayAlert("Invalid", message, "OK");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -176,3 +179,5 @@ namespace MAUIAssessmentFrontend.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }
+
+
