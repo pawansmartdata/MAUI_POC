@@ -1,5 +1,6 @@
 ﻿using App.Core.Dtos;
 using App.Core.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpGet("user/{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUserById(int id)
         {
             try
@@ -41,6 +43,7 @@ namespace MAUIAssessmentBackend.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromForm] UpdateUserDto dto)
         {
             try
@@ -55,6 +58,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             try

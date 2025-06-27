@@ -1,5 +1,6 @@
 ﻿using App.Core.Dtos;
 using App.Core.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace MAUIAssessmentBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ItemController : ControllerBase
     {
         private readonly IItemService _itemService;
@@ -19,6 +21,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var items = await _itemService.GetAllItemsAsync();
@@ -26,6 +29,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             var item = await _itemService.GetItemByIdAsync(id);
@@ -35,6 +39,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateItem([FromForm] ItemDto dto)
         {
             try
@@ -49,6 +54,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateItem(int id, [FromForm] ItemDto dto)
         {
             try
@@ -64,6 +70,7 @@ namespace MAUIAssessmentBackend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var deleted = await _itemService.DeleteItemAsync(id);
