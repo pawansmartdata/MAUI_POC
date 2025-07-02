@@ -71,7 +71,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             set
             {
                 _isBusy = value;
-                OnPropertyChanged(); // Or use INotifyPropertyChanged/Fody/MVVM Toolkit
+                OnPropertyChanged(); 
             }
         }
 

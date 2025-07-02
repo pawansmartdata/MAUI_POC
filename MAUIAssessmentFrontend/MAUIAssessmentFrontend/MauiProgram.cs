@@ -24,7 +24,7 @@ namespace MAUIAssessmentFrontend
                 });
 
            // var uri = new Uri("https://7245-49-248-148-242.ngrok-free.app/");
-          var uri = new Uri("https://3a00-49-248-148-242.ngrok-free.app/");
+       //  var uri = new Uri("https://d90e-49-248-148-242.ngrok-free.app/");
 
             builder.Services.AddHttpClient("AuthorizedClient", client =>
             {
@@ -57,11 +57,13 @@ namespace MAUIAssessmentFrontend
             builder.Services.AddTransient<AddItemViewModel>();
             builder.Services.AddTransient<EditProfilePage>();
             builder.Services.AddTransient<EditProfileViewModel>();
-            //builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddHttpClient<GeminiService>();
             builder.Services.AddTransient<DetailPage>();
             builder.Services.AddTransient<DetailPageViewModel>();
             builder.Services.AddTransient<EditItemPageViewModel>();
             builder.Services.AddTransient<EditItemPage>(); 
+            builder.Services.AddTransient<ChatViewModel>();
+            builder.Services.AddTransient<ChatView>();
             // builder.Services.AddSingleton<IUserService, UserService>();
             //builder.Services.AddSingleton<IItemService, ItemService>();
 

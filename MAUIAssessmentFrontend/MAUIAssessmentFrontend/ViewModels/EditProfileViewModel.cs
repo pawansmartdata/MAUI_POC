@@ -52,24 +52,6 @@ namespace MAUIAssessmentFrontend.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand GoBackCommand { get; }
 
-        //private async void LoadExistingProfile()
-        //{
-        //    //FirstName = Preferences.Get("FirstName", "");
-        //    //LastName = Preferences.Get("LastName", "");
-        //    //Email = Preferences.Get("Email", "");
-        //    //PhoneNumber = Preferences.Get("PhoneNumber", "");
-        //    //ProfileImage = Preferences.Get("UserImage", "default_profile.png");
-        //    var id = Preferences.Get("userId",0);
-        //    var profile = await _userService.GetUserByIdAsync(id);
-        //    var data = profile.Data;
-        //    FirstName = data.FirstName;
-        //    LastName = data.LastName;
-        //    Email = data.Email;
-        //    PhoneNumber = data.PhoneNumber;
-        //    ProfileImage = data.ProfileImage;
-
-        //}
-
         public async Task PickImageAsync()
         {
             var result = await FilePicker.PickAsync(new PickOptions

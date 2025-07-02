@@ -48,26 +48,6 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         }
 
-        //public async Task InitializeAsync(int itemId)
-        //{
-        //    var item = await _itemService.GetItemByIdAsync(itemId);
-
-        //    Id = item.Id;
-        //    Name = item.Name;
-        //    Description = item.Description;
-        //    ItemImageUrl = item.ItemImageUrl;
-        //    Latitude = item.Latitude;
-        //    Longitude = item.Longitude;
-
-        //    MapHtml = $@"
-        //<iframe width='100%' height='100%' frameborder='0' style='border:0'
-        //src='https://www.google.com/maps/embed/v1/view?key=YOUR_KEY
-        //&center={Latitude},{Longitude}&zoom=14' allowfullscreen></iframe>";
-
-        //    OnPropertyChanged(nameof(MapHtml));
-        //}
-
-
         private async void OnEdit()
         {
             if (Item != null)
@@ -76,11 +56,6 @@ namespace MAUIAssessmentFrontend.ViewModels
             }
         }
 
-        //private async void OnEdit()
-        //{
-        //    if (Item != null)
-        //        await Shell.Current.GoToAsync($"{nameof(EditItemPage)}?itemId={Item.Id}");
-        //}
 
         private async Task OnDelete()
         {

@@ -17,6 +17,7 @@ namespace MAUIAssessmentFrontend
             Routing.RegisterRoute(nameof(DetailPage), typeof(Views.DetailPage));
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(EditItemPage), typeof(Views.EditItemPage));
+            Routing.RegisterRoute(nameof(ChatView), typeof(Views.ChatView));
 
         }
     }
