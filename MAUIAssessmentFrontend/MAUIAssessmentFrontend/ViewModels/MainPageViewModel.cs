@@ -28,6 +28,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                 }
             }
         }
+
         private string _userName;
 
 
@@ -40,11 +41,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                     _filteredItems = value;
                     OnPropertyChanged();
             }
-        }
-
-
-
-        
+        }        
 
         public string UserName
         {
@@ -82,6 +79,7 @@ namespace MAUIAssessmentFrontend.ViewModels
         public ICommand GoToAddItemCommand { get; }
         public ICommand GoToDetailCommand { get; }
         public ICommand SearchCommand { get; }
+        public ICommand AIBotCommand { get; }
 
         public MainPageViewModel(IItemService itemService)
         {
@@ -89,11 +87,11 @@ namespace MAUIAssessmentFrontend.ViewModels
 
             UserName = Preferences.Get("userName", "User");
             ProfileImage = Preferences.Get("userImage", "default_image_url");
-
             GoToProfileCommand = new Command(async () => await GoToProfileAsync());
             LoadItemsCommand = new Command(async () => await LoadItemsAsync());
             GoToAddItemCommand = new Command(async () => await Shell.Current.GoToAsync("AddItemPage"));
             GoToDetailCommand = new Command<int>(async (Id) => await GoToDetailPage(Id));
+            AIBotCommand = new Command(async () => await GoToAIBotPage());
             SearchCommand = new Command(() => FilterItems());
             FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
             LoadItemsCommand.Execute(null);
@@ -133,41 +131,16 @@ namespace MAUIAssessmentFrontend.ViewModels
             FilterItems();
         }
 
-        //private void FilterItems()
-        //{
-        //    if (string.IsNullOrWhiteSpace(SearchText))
-        //        FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
-        //    else
-        //        FilteredItems = new ObservableCollection<ItemResponseDto>(
-        //            Items.Where(item => item.Name?.ToLower().Contains(SearchText.ToLower()) == true));
 
-        //}
         private void FilterItems()
         {
-            //var filtVar = new ObservableCollection<ItemResponseDto>();
-            //if (string.IsNullOrWhiteSpace(SearchText))
-            //{
-            //    FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
-            //}
-            //else
-            //{
-            //    var filtered = Items.Where(item =>
-            //        item.Name?.ToLower().Contains(SearchText.ToLower()) == true);
-            //    filtVar = new ObservableCollection<ItemResponseDto>(filtered);
-            //}
-            //FilteredItems.Clear();
-            //foreach(var item in filtVar)
-            //{
-            //    FilteredItems.Add(item);
-            //}
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 FilteredItems = new ObservableCollection<ItemResponseDto>(Items);
             }
             else
             {
-                //var filtered = Items.Where(item =>
-                //    item.Name?.ToLower().Contains(SearchText.ToLower()) == true);
+               
                 var lowerSearchText = SearchText.ToLowerInvariant();
 
                 var filtered = Items.Where(item =>
@@ -197,6 +170,11 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             Console.WriteLine("Id is" + Id);
             await Shell.Current.GoToAsync($"DetailPage?itemId={Id}");
+        }
+
+        private async Task GoToAIBotPage()
+        {
+            await Shell.Current.GoToAsync("ChatView");
         }
     }
 }

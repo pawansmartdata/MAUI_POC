@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Utility;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -89,24 +90,23 @@ namespace MAUIAssessmentFrontend.ViewModels
         }
 
         private string _password;
-        //public string Password
-        //{
-        //    get => _password;
-        //    set { _password = value; OnPropertyChanged(); }
-        //}
-
-        //private string _confirmPassword;
-        //public string ConfirmPassword
-        //{
-        //    get => _confirmPassword;
-        //    set { _confirmPassword = value; OnPropertyChanged(); }
-        //}
-
+   
         private string _errorMessage;
         public string ErrorMessage
         {
             get => _errorMessage;
             set { _errorMessage = value; OnPropertyChanged(); }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(); // Or use INotifyPropertyChanged/Fody/MVVM Toolkit
+            }
         }
 
         public ICommand RegisterCommand { get; }
@@ -119,68 +119,72 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task RegisterAsync()
         {
-            ErrorMessage = string.Empty;
+            await LoaderHelper.RunWithLoader(async() =>
+            {
 
-            // Validations
-            if (string.IsNullOrWhiteSpace(FirstName) )
-            {
-                ErrorMessage = "First name is required.";
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(LastName) )
-            {
-                ErrorMessage = "Last name is required.";
-                return;
-            }
-            if (LastName.Length > 20)
-            {
-                ErrorMessage = "Last name should ne be more than 20 characters.";
-                return;
-            }
-            if ( FirstName.Length > 20)
-            {
-                ErrorMessage = "First name should ne be more than 20 characters.";
-                return;
-            }
 
-            if (string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                ErrorMessage = "Enter a valid email.";
-                return;
-            }
+                ErrorMessage = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
-            {
-                ErrorMessage = "Password must be at least 6 characters.";
-                return;
-            }
+                // Validations
+                if (string.IsNullOrWhiteSpace(FirstName))
+                {
+                    ErrorMessage = "First name is required.";
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(LastName))
+                {
+                    ErrorMessage = "Last name is required.";
+                    return;
+                }
+                if (LastName.Length > 20)
+                {
+                    ErrorMessage = "Last name should ne be more than 20 characters.";
+                    return;
+                }
+                if (FirstName.Length > 20)
+                {
+                    ErrorMessage = "First name should ne be more than 20 characters.";
+                    return;
+                }
 
-            if (Password != ConfirmPassword)
-            {
-                ErrorMessage = "Passwords do not match.";
-                return;
-            }
+                if (string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    ErrorMessage = "Enter a valid email.";
+                    return;
+                }
 
-            var registerDto = new RegisterDto
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                Email = Email,
-                PhoneNumber = PhoneNumber,
-                Password = Password
-            };
+                if (string.IsNullOrWhiteSpace(Password) || Password.Length < 6)
+                {
+                    ErrorMessage = "Password must be at least 6 characters.";
+                    return;
+                }
 
-            var result = await _authService.RegisterAsync(registerDto);
+                if (Password != ConfirmPassword)
+                {
+                    ErrorMessage = "Passwords do not match.";
+                    return;
+                }
 
-            if (result == true)
-            {
-                await Toast.Make("Registered Successfully!", ToastDuration.Short).Show();
-                await Shell.Current.GoToAsync("..");
-            }
-            else
-            {
-                ErrorMessage = "Registration failed. Try again.";
-            }
+                var registerDto = new RegisterDto
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    PhoneNumber = PhoneNumber,
+                    Password = Password
+                };
+
+                var result = await _authService.RegisterAsync(registerDto);
+
+                if (result == true)
+                {
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    ErrorMessage = "Registration failed. Try again.";
+                }
+            }, isBusy => IsBusy = isBusy, "Creating Account...");
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

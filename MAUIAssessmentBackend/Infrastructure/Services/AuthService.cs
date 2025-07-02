@@ -38,8 +38,8 @@ namespace Infrastructure.Services
                     throw new Exception("Email already exists.");
                 }
 
-                // Handle image upload
-                string profileImageUrl = GetDefaultImageUrl(); // default first
+             
+                string profileImageUrl = GetDefaultImageUrl(); 
 
                 if (imageFile != null)
                 {
@@ -50,19 +50,17 @@ namespace Infrastructure.Services
                     }
                 }
 
-                // Final user entity to save
+                
                 var newUser = new User
                 {
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     Email = request.Email,
                     PhoneNumber = request.PhoneNumber,
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash), // Make sure to hash in production
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.PasswordHash), 
                     ProfileImagePath = profileImageUrl
                 };
                 string htmlContent = await _emailTemplateService.GenerateRegistrationEmail(newUser.FirstName+" "+newUser.LastName, "MyRestaurantApp", newUser.Email, request.PasswordHash);
-               // await _emailService.SendEmailAsync(user.Email, "Welcome to MyRestaurantApp!", htmlContent);
-
                 await _userRepository.AddAsync(newUser);
                 await _emailService.SendEmailAsync(newUser.Email, newUser.FirstName+" "+newUser.LastName, "Welcome to our platform", htmlContent);
             }
@@ -87,7 +85,6 @@ namespace Infrastructure.Services
                     throw new UnauthorizedAccessException("Invalid email or password.");
                 }
 
-                // ⚠️ This is for demo; in production, use a proper password hashing check
                 if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 {
                     throw new UnauthorizedAccessException("Invalid email or password.");
@@ -111,7 +108,7 @@ namespace Infrastructure.Services
 
         private string GetDefaultImageUrl()
         {
-            return "https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?t=st=1750222786~exp=1750226386~hmac=00a906dfbd364099333be77c2b7466ff0776c65f5e7061b84ea8674ee1eec314&w=900"; // Replace with your actual domain and path
+            return "/applicationimage/profile.png";
         }
     }
 }

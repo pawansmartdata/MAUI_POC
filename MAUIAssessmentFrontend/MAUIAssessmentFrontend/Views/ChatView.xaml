@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MAUIAssessmentFrontend.ViewModels"
+             x:Class="MAUIAssessmentFrontend.Views.ChatView"
+             Title="Chat Bot"
+             BackgroundColor="#121212">
+    <!-- Modern dark background -->
+
+    <ContentPage.BindingContext>
+        <viewModels:ChatViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto" Padding="10">
+
+        <!-- Messages Area -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout x:Name="ChatStack" Spacing="8" Padding="5">
+                <CollectionView ItemsSource="{Binding Messages}" 
+                                BackgroundColor="Transparent"
+                                SelectionMode="None"
+                                HeightRequest="500">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="12"
+                                   Margin="5"
+                                   HasShadow="True"
+                                   CornerRadius="18"
+                                   BackgroundColor="{Binding IsUser, Converter={StaticResource BoolToColorConverter}}">
+                                <Label Text="{Binding Message}"
+                                       TextColor="White"
+                                       FontSize="16" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Input Area -->
+        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" Padding="5" BackgroundColor="#1A1A1A">
+            <Entry Text="{Binding UserInput}"
+                   Placeholder="Type your message..."
+                   FontSize="16"
+                   TextColor="White"
+                   PlaceholderColor="#888"
+                   BackgroundColor="#2A2A2A"
+                   HeightRequest="44"
+                   VerticalOptions="Center"
+                   Margin="0,0,5,0"
+                    />
+
+            <Button Text="➤"
+                    Command="{Binding SendCommand}"
+                    WidthRequest="50"
+                    HeightRequest="44"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="22"
+                    VerticalOptions="Center"
+                    Grid.Column="1" />
+        </Grid>
+    </Grid>
+</ContentPage>

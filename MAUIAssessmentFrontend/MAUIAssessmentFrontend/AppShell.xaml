@@ -16,5 +16,6 @@
     <ShellContent Route="AddItemPage" ContentTemplate="{DataTemplate views:AddItemPage}" />
     <ShellContent Route="DetailPage" ContentTemplate="{DataTemplate views:DetailPage}" />
     <ShellContent Route="EditProfilePage" ContentTemplate="{DataTemplate views:EditProfilePage}" />
+    <ShellContent Route="Chat" ContentTemplate="{DataTemplate views:ChatView}" />
 
 </Shell>

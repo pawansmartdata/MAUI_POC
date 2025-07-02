@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Utility;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -36,27 +37,20 @@ namespace MAUIAssessmentFrontend.ViewModels
             set { _errorMessage = value; OnPropertyChanged(); }
         }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(); // Or use INotifyPropertyChanged/Fody/MVVM Toolkit
+            }
+        }
+
         public ICommand PickImageCommand { get; }
         public ICommand SaveCommand { get; }
         public ICommand GoBackCommand { get; }
-
-        //private async void LoadExistingProfile()
-        //{
-        //    //FirstName = Preferences.Get("FirstName", "");
-        //    //LastName = Preferences.Get("LastName", "");
-        //    //Email = Preferences.Get("Email", "");
-        //    //PhoneNumber = Preferences.Get("PhoneNumber", "");
-        //    //ProfileImage = Preferences.Get("UserImage", "default_profile.png");
-        //    var id = Preferences.Get("userId",0);
-        //    var profile = await _userService.GetUserByIdAsync(id);
-        //    var data = profile.Data;
-        //    FirstName = data.FirstName;
-        //    LastName = data.LastName;
-        //    Email = data.Email;
-        //    PhoneNumber = data.PhoneNumber;
-        //    ProfileImage = data.ProfileImage;
-
-        //}
 
         public async Task PickImageAsync()
         {
@@ -79,6 +73,10 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         public async Task LoadProfileAsync()
         {
+            await LoaderHelper.RunWithLoader(async()=>
+            {
+
+            
             try
             {
                 int userId = Preferences.Get("userId", 0);
@@ -104,6 +102,7 @@ namespace MAUIAssessmentFrontend.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
+            }, isBusy => IsBusy = isBusy, "Proifile Updating...");
         }
 
 

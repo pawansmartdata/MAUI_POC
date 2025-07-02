@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using MAUIAssessmentFrontend.Models;
 using MAUIAssessmentFrontend.Services.Interfaces;
+using MAUIAssessmentFrontend.Utility;
 using Microsoft.Maui.Storage;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -55,6 +56,20 @@ namespace MAUIAssessmentFrontend.ViewModels
             set { _selectedImagePath = value; OnPropertyChanged(); }
         }
 
+    
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set
+            {
+                _isBusy = value;
+                OnPropertyChanged(); 
+            }
+        }
+
+
         public ICommand SaveCommand { get; }
         public ICommand GoBackCommand { get; }
         public ICommand ChangeImageCommand { get; }
@@ -89,44 +104,48 @@ namespace MAUIAssessmentFrontend.ViewModels
 
         private async Task SaveAsync()
         {
-            ErrorMessage = string.Empty;
+            await LoaderHelper.RunWithLoader(async()=>
+            {
 
-            // Validations
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                ErrorMessage = "Name is required.";
-                return;
-            }
-            
-            if (string.IsNullOrWhiteSpace(Description))
-            {
-                ErrorMessage = "Description is required";
-                return;
-            }
 
-            
+                ErrorMessage = string.Empty;
 
-            
-            var dto = new ItemDto
-            {
-                Name = Name,
-                Description = Description,
-                Latitude = Latitude,
-                Longitude = Longitude,
-                ItemImage = SelectedImagePath
-            };
+                // Validations
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    ErrorMessage = "Name is required.";
+                    return;
+                }
 
-            var ok = await _itemService.UpdateItemAsync(Id, dto);
-            if (ok)
-            {
-                //await App.Current.MainPage.DisplayAlert("Success", "Item updated!", "OK");
-                await Toast.Make("Item Updated!", ToastDuration.Short).Show();
-                await GoBack();
-            }
-            else
-            {
-                await App.Current.MainPage.DisplayAlert("Error", "Update failed.", "OK");
-            }
+                if (string.IsNullOrWhiteSpace(Description))
+                {
+                    ErrorMessage = "Description is required";
+                    return;
+                }
+
+
+
+
+                var dto = new ItemDto
+                {
+                    Name = Name,
+                    Description = Description,
+                    Latitude = Latitude,
+                    Longitude = Longitude,
+                    ItemImage = SelectedImagePath
+                };
+
+                var ok = await _itemService.UpdateItemAsync(Id, dto);
+                if (ok)
+                {
+                    await App.Current.MainPage.DisplayAlert("Success", "Item updated!", "OK");
+                    await GoBack();
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Error", "Update failed.", "OK");
+                }
+            }, isBusy => IsBusy = isBusy, "Items Updating...");
         }
 
         private async Task GoBack()

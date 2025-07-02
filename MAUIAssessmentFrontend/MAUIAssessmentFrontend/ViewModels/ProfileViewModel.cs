@@ -107,11 +107,11 @@ namespace MAUIAssessmentFrontend.ViewModels
                 if (data != null)
                 {
                     FirstName = data.FirstName;
-                    LastName = data.LastName;
-             
+                    LastName = data.LastName;             
                     Email = data.Email;
                     PhoneNumber = data.PhoneNumber;
                     ProfileImage = data.ProfileImage ?? "default_profile.png";
+                    Console.WriteLine("Profile image"+data.ProfileImage);
                 }
             }
             catch (Exception ex)
