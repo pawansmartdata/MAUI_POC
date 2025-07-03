@@ -119,6 +119,7 @@ namespace MAUIAssessmentFrontend.ViewModels
                     Preferences.Set("userImage", user.ProfileImagePath);
                     Preferences.Set("jwtToken", result.Token.Token);
                     Preferences.Set("email", result.Token.UserData.Email);
+                    ResetFields();
 
                     await Shell.Current.GoToAsync("//MainPage");
                 }
