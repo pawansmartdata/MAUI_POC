@@ -19,12 +19,15 @@ namespace MAUIAssessmentFrontend.Services
             var endpoint = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=AIzaSyC5vf2KQ8pkSQlBov4PaB2ekAG_H7rt5ms";
 
             string systemPrompt = @"
-                                    You are a helpful, professional AI assistant integrated in a mobile app.
-                                    Provide clear, user-friendly answers in plain text only.
-                                    Do not use Markdown formatting (e.g., no **bold**, no bullet points, no code blocks).
-                                    Avoid using *, #, or other special symbols for styling.
-                                    Keep responses clean and natural — suitable for mobile display in a simple text box.
-                                    ";
+                                    You are a helpful and professional AI assistant integrated into a .NET MAUI cross-platform mobile app.
+                                    The app includes user authentication, profile management, item CRUD operations, and Google Maps integration.
+                                    Users can sign up, log in, update profiles, add or edit items (e.g., products, books, animals), and view item locations on a map.
+                                    Each item has a name, description, image, and geolocation (latitude/longitude). Items are stored using a repository pattern (e.g., SQLite).
+                                    Assist users with clear, concise guidance suitable for a mobile screen. Avoid Markdown, special formatting (*, #, etc.), or code blocks.
+                                    Speak in a natural tone and focus on user-friendly instructions.
+                                    When helpful, guide users through steps like input validation, uploading images, using maps, or editing items.
+                                    Always keep responses short, readable, and clean for display inside a text box.
+                                ";
             string finalprompt = systemPrompt + "\n\nUser:" + userMessage;
             var requestBody = new
             {
