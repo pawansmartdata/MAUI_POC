@@ -20,5 +20,11 @@ public partial class MainPage : ContentPage
         {
             _viewModel.LoadItemsCommand.Execute(null);
         }
+
+        if (BindingContext is MainPageViewModel vm)
+        {
+            vm.RefreshSessionData(); // You’ll add this method in the ViewModel next
+        }
+
     }
 }
