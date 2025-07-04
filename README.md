@@ -27,6 +27,10 @@
  
 ###  UI/UX
 - Validation and input error indicators
+
+### 🤖 AI Assistant Integration (Test Purpose)
+This application includes a basic AI assistant integrated for testing purposes in .NET MAUI. It provides simple, text-based guidance to help users during sign-up, profile editing, item management, and map usage. The responses are optimized for mobile display and avoid any special formatting.
+Note: This AI is not fully accurate or production-ready — it is added to test how AI can be integrated into a .NET MAUI application.
  
 ---
  
@@ -115,4 +119,6 @@ dotnet ef database update
 dotnet run
 4. Expose API via Ngrok
 ngrok http https://localhost:5001
+ngrok http 5194(your backend port) --domain=wholly-rested-kid.ngrok-free.app(url that get from the swagger)
+command ngrok http 5194 --domain=wholly-rested-kid.ngrok-free.app
 Update the ngrok URL in your MAUI frontend’s MauiProgram.cs.
