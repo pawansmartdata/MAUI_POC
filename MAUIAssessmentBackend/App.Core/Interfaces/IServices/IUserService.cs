@@ -11,7 +11,7 @@ namespace App.Core.Interfaces.IServices
     public interface IUserService
     {
         Task<Object> GetUserByIdAsync(int userId);
-        Task<bool> UpdateUserAsync(int userId, UpdateUserDto updateUserDto, string webRootPath);
+        Task<UpdateUserResponseDto> UpdateUserAsync(int userId, UpdateUserDto updateUserDto, string webRootPath);
         Task<bool> DeleteUserAsync(int userId);
     }
 }

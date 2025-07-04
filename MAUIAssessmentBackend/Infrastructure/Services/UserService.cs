@@ -44,7 +44,7 @@ namespace Infrastructure.Services
                 throw new Exception($"Error fetching user: {ex.Message}");
             }
         }
-        public async Task<bool> UpdateUserAsync(int userId, UpdateUserDto updateUserDto, string webRootPath)
+        public async Task<UpdateUserResponseDto> UpdateUserAsync(int userId, UpdateUserDto updateUserDto, string webRootPath)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             if (user == null || user.IsDeleted)
@@ -68,7 +68,16 @@ namespace Infrastructure.Services
             user.PhoneNumber = updateUserDto.PhoneNumber ?? user.PhoneNumber;
 
             await _userRepository.UpdateAsync(user);
-            return true;
+            return new UpdateUserResponseDto
+            {
+                
+                Email=user.Email,
+                FirstName=user.FirstName,
+                LastName=user.LastName,
+                ProfileImagePath =user?.ProfileImagePath,
+                PhoneNumber=user?.PhoneNumber
+                
+            };
         }
         public async Task<bool> DeleteUserAsync(int userId)
         {

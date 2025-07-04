@@ -15,4 +15,14 @@ namespace App.Core.Dtos
         public IFormFile? ProfilePicture { get; set; }
         public string? Email { get; set; }
     }
+
+    public class UpdateUserResponseDto
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? ProfileImagePath { get; set; }
+        public string? Email { get; set; }
+        public int Status { get; set; }
+    }
 }

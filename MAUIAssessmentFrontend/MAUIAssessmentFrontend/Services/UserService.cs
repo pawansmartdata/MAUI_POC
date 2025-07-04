@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MAUIAssessmentFrontend.Services
@@ -36,7 +37,7 @@ namespace MAUIAssessmentFrontend.Services
 
             return null;
         }
-        public async Task<bool> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, string ProfilePicture)
+        public async Task<UpdateUserResponseDto> UpdateProfileAsync(int userId, string firstName, string lastName, string email, string phoneNumber, string ProfilePicture)
         {
             try
             {
@@ -55,12 +56,36 @@ namespace MAUIAssessmentFrontend.Services
                 }
                  
                 var response = await _httpClient.PutAsync($"api/User/{userId}", form);
-                return response.IsSuccessStatusCode;
-            }
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = JsonSerializer.Deserialize<UpdateProfileApiResponse>(responseContent, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    var profile = result?.ProfileData ?? new UpdateUserResponseDto();
+                    profile.Status = result?.Status ?? (int)response.StatusCode;
+                    return profile;
+                }
+               
+                    else
+                    {
+                        return new UpdateUserResponseDto
+                        {
+                            Status = (int)response.StatusCode,
+                            Message = "Error updating profile."
+                        };
+                    }
+                
+                            }
             catch (Exception ex)
             {
                 Console.WriteLine($"[UserService] UpdateProfileAsync error: {ex.Message}");
-                return false;
+                return new UpdateUserResponseDto
+                {
+                    Message = ex.Message
+                };
             }
         }
 

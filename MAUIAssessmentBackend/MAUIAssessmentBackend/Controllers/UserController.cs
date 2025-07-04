@@ -48,8 +48,8 @@ namespace MAUIAssessmentBackend.Controllers
         {
             try
             {
-                await _userService.UpdateUserAsync(id, dto,_env.WebRootPath);
-                return Ok(new { message = "User updated successfully." });
+               var updateProfileInfo= await _userService.UpdateUserAsync(id, dto,_env.WebRootPath);
+                return Ok(new { status=200, profileData=updateProfileInfo, message = "User updated successfully." });
             }
             catch (Exception ex)
             {

@@ -176,5 +176,17 @@ namespace MAUIAssessmentFrontend.ViewModels
         {
             await Shell.Current.GoToAsync("ChatView");
         }
+
+        public void RefreshSessionData()
+        {
+            UserName = Preferences.Get("userName", "User");
+            ProfileImage = Preferences.Get("userImage", "default_image_url");
+
+            Console.WriteLine("profileimage path :" + ProfileImage);
+
+            // Re-evaluate roles too if needed
+            //OnPropertyChanged(nameof(IsAdmin));
+            //OnPropertyChanged(nameof(IsUser));
+        }
     }
 }

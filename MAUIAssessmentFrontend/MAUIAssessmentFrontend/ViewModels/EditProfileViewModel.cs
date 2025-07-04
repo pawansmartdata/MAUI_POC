@@ -142,14 +142,14 @@ namespace MAUIAssessmentFrontend.ViewModels
             }
 
             var success = await _userService.UpdateProfileAsync(userId, FirstName, LastName, Email, PhoneNumber, _selectedImage);
-            if (success)
+            if (success.Status==200)
             {
-                Preferences.Set("FirstName", FirstName);
-                Preferences.Set("LastName", LastName);
-                Preferences.Set("Email", Email);
-                Preferences.Set("PhoneNumber", PhoneNumber);
+                Preferences.Set("userName", success.FirstName);
+                Preferences.Set("LastName", success.LastName);
+                Preferences.Set("Email", success.Email);
+                Preferences.Set("PhoneNumber", success.PhoneNumber);
                 if (!string.IsNullOrEmpty(ProfileImage))
-                    Preferences.Set("UserImage", ProfileImage);
+                    Preferences.Set("userImage", success.ProfileImagePath);
 
                 //await App.Current.MainPage.DisplayAlert("Success", "Profile updated!", "OK");
                 await Toast.Make("Profile Updated!!", ToastDuration.Short).Show();
